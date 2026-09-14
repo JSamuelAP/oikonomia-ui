@@ -38,7 +38,9 @@ jobs:
         run: npm run test:ci
 
   build:
+    name: Build
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
       - name: Checkout
@@ -53,14 +55,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Configure PrimeNG license
+      - name: Validate PrimeUI license
         env:
-          PRIME_NG_LICENSE: ${{ vars.PRIME_NG_LICENSE }}
+          PRIME_UI_LICENSE: ${{ vars.PRIME_UI_LICENSE }}
+        run: |
+          if [ -z "$PRIME_UI_LICENSE" ]; then
+            echo "PRIME_UI_LICENSE is not configured."
+            exit 1
+          fi
+
+      - name: Configure PrimeUI license
+        env:
+          PRIME_UI_LICENSE: ${{ vars.PRIME_UI_LICENSE }}
         run: |
           cat > src/environments/environment.ts <<EOF
           export const environment = {
             production: true,
-            primeNgLicense: '${PRIME_NG_LICENSE}'
+            primeUiLicense: '${PRIME_UI_LICENSE}'
           };
           EOF
 

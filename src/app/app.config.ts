@@ -16,7 +16,7 @@ export const appConfig: ApplicationConfig = {
           darkModeSelector: false,
         },
       },
-      license: environment.primeNgLicense,
+      license: environment.primeUiLicense,
     }),
   ],
 };

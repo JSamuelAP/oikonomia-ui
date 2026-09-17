@@ -1,0 +1,130 @@
+<form [formRoot]="signupForm" class="flex flex-col gap-4">
+  <div>
+    <p-floatlabel variant="on">
+      <input
+        pInputText
+        id="first-name"
+        [formField]="signupForm.firstName"
+        autocomplete="given-name"
+        [fluid]="true"
+        pSize="large"
+      />
+      <label for="first-name">Nombre</label>
+    </p-floatlabel>
+    @if (signupForm.firstName().touched() && signupForm.firstName().invalid()) {
+      @for (error of signupForm.firstName().errors(); track error.kind) {
+        <p-message severity="error" size="small" variant="simple">{{ error.message }}</p-message>
+      }
+    }
+  </div>
+
+  <div>
+    <p-floatlabel variant="on">
+      <input
+        pInputText
+        id="last-name"
+        [formField]="signupForm.lastName"
+        autocomplete="family-name"
+        [fluid]="true"
+        pSize="large"
+      />
+      <label for="last-name">Apellidos</label>
+    </p-floatlabel>
+    @if (signupForm.lastName().touched() && signupForm.lastName().invalid()) {
+      @for (error of signupForm.lastName().errors(); track error.kind) {
+        <p-message severity="error" size="small" variant="simple">{{ error.message }}</p-message>
+      }
+    }
+  </div>
+
+  <div>
+    <p-floatlabel variant="on">
+      <input pInputText id="email" [formField]="signupForm.email" autocomplete="email" [fluid]="true" pSize="large" />
+      <label for="email">Correo electrónico</label>
+    </p-floatlabel>
+    @if (signupForm.email().touched() && signupForm.email().invalid()) {
+      @for (error of signupForm.email().errors(); track error.kind) {
+        <p-message severity="error" size="small" variant="simple">{{ error.message }}</p-message>
+      }
+    }
+  </div>
+
+  <div>
+    <p-floatlabel variant="on">
+      <p-iconfield class="w-full">
+        <input
+          pInputPassword
+          id="password"
+          [formField]="signupForm.password"
+          autocomplete="new-password"
+          [fluid]="true"
+          pSize="large"
+          [(mask)]="passwordMask"
+          (focus)="passwordPopover.show($event)"
+          (blur)="passwordPopover.hide()"
+        />
+        <p-inputicon (click)="passwordMask.set(!passwordMask())" class="cursor-pointer">
+          @if (passwordMask()) {
+            <svg data-p-icon="eye"></svg>
+          } @else {
+            <svg data-p-icon="eye-slash"></svg>
+          }
+        </p-inputicon>
+      </p-iconfield>
+      <label for="password">Contraseña</label>
+    </p-floatlabel>
+
+    <p-popover #passwordPopover [dismissable]="true">
+      <ng-template #content>
+        <app-password-requirements [value]="signupForm.password().value()" />
+      </ng-template>
+    </p-popover>
+
+    @if (signupForm.password().touched() && signupForm.password().invalid()) {
+      <p-message severity="error" size="small" variant="simple">
+        @for (error of signupForm.password().errors(); track error.kind) {
+          <p-message severity="error" size="small" variant="simple">{{ error.message }}</p-message>
+        }
+      </p-message>
+    }
+  </div>
+
+  <div>
+    <p-floatlabel variant="on">
+      <p-iconfield class="w-full">
+        <input
+          pInputPassword
+          id="confirm-password"
+          [formField]="signupForm.confirmPassword"
+          autocomplete="new-password"
+          [fluid]="true"
+          pSize="large"
+          [(mask)]="confirmMask"
+        />
+        <p-inputicon (click)="confirmMask.set(!confirmMask())" class="cursor-pointer">
+          @if (confirmMask()) {
+            <svg data-p-icon="eye"></svg>
+          } @else {
+            <svg data-p-icon="eye-slash"></svg>
+          }
+        </p-inputicon>
+      </p-iconfield>
+      <label for="confirm-password">Confirmar contraseña</label>
+    </p-floatlabel>
+    @if (signupForm.confirmPassword().touched() && signupForm.confirmPassword().invalid()) {
+      @for (error of signupForm.confirmPassword().errors(); track error.kind) {
+        <p-message severity="error" size="small" variant="simple">{{ error.message }}</p-message>
+      }
+    }
+  </div>
+
+  <button pButton type="submit" [disabled]="signupForm().submitting()" size="large" class="mt-2">
+    @if (signupForm().submitting()) {
+      Registrando...
+    } @else {
+      Registrarse
+    }
+  </button>
+
+  <ng-content select="[footer]" />
+</form>

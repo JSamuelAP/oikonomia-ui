@@ -3,7 +3,7 @@ import { ValidationError } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
 
 import { AuthFacade } from '@core/auth/auth.facade';
-import { LoginCredentials } from '@auth/data-access/models/login-credentials';
+import { LoginCredentials } from '@core/auth/models/login-credentials';
 import { LoginForm } from '@auth/ui/login-form/login-form';
 
 @Component({

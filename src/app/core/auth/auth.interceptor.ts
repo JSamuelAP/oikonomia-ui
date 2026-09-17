@@ -1,8 +1,8 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 
-import { AuthSessionService } from '@core/auth/auth-session.service';
-import { SKIP_AUTH } from '@core/auth/skip-auth-context';
+import { AuthSessionService } from './auth-session.service';
+import { SKIP_AUTH } from './skip-auth-context';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   if (req.context.get(SKIP_AUTH)) {

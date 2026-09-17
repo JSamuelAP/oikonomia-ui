@@ -6,7 +6,7 @@ import { InputPasswordModule } from 'primeng/inputpassword';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 
-import { LoginCredentials } from '@auth/data-access/models/login-credentials';
+import { LoginCredentials } from '@core/auth/models/login-credentials';
 
 @Component({
   imports: [ButtonModule, FloatLabelModule, FormField, FormRoot, InputPasswordModule, InputTextModule, MessageModule],

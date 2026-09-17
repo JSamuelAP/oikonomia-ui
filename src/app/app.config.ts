@@ -1,11 +1,13 @@
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { routes } from './app.routes';
-import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
-import { environment } from '@environments/environment';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { providePrimeNG } from 'primeng/config';
+
 import { authInterceptor } from '@core/interceptors/auth.interceptor';
+import { environment } from '@environments/environment';
+
+import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [

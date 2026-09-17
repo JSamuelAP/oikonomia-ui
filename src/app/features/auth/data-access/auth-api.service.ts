@@ -1,10 +1,12 @@
 import { HttpClient, HttpContext } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
-import { environment } from '@environments/environment';
-import { LoginCredentials } from './models/login-credentials';
-import { AuthResponse } from './models/auth-response';
 import { firstValueFrom } from 'rxjs';
+
 import { SKIP_AUTH } from '@core/auth/skip-auth-context';
+import { environment } from '@environments/environment';
+
+import { AuthResponse } from './models/auth-response';
+import { LoginCredentials } from './models/login-credentials';
 
 @Service()
 export class AuthApiService {

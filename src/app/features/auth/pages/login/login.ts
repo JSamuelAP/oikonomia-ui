@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
 import { ValidationError } from '@angular/forms/signals';
+import { Router, RouterLink } from '@angular/router';
+
+import { AuthFacade } from '@core/auth/auth.facade';
 import { LoginCredentials } from '@auth/data-access/models/login-credentials';
 import { LoginForm } from '@auth/ui/login-form/login-form';
-import { AuthFacade } from '@core/auth/auth.facade';
 
 @Component({
   selector: 'app-login',

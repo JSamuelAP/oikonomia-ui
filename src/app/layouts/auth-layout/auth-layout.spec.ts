@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { AuthLayout } from './auth-layout';
 
 describe('AuthLayout', () => {

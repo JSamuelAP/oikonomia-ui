@@ -1,14 +1,15 @@
 import { Component, input, signal } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputPasswordModule } from 'primeng/inputpassword';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { ButtonModule } from 'primeng/button';
 import { email, form, FormField, FormRoot, maxLength, required, ValidationError } from '@angular/forms/signals';
+import { ButtonModule } from 'primeng/button';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputPasswordModule } from 'primeng/inputpassword';
+import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
+
 import { LoginCredentials } from '@auth/data-access/models/login-credentials';
 
 @Component({
-  imports: [InputTextModule, InputPasswordModule, ButtonModule, FloatLabelModule, FormField, FormRoot, MessageModule],
+  imports: [ButtonModule, FloatLabelModule, FormField, FormRoot, InputPasswordModule, InputTextModule, MessageModule],
   selector: 'app-login-form',
   templateUrl: './login-form.html',
 })

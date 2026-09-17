@@ -9,5 +9,18 @@
       }
     }
   ],
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "plugins": ["prettier-plugin-tailwindcss", "@ianvs/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "^@angular/(.*)$",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^@core/(.*)$",
+    "^@environments/(.*)$",
+    "^@shared/(.*)$",
+    "^@auth/(.*)$",
+    "",
+    "^[./]"
+  ],
+  "importOrderParserPlugins": ["typescript", "decorators-legacy"],
+  "importOrderTypeScriptVersion": "6.0.2"
 }

@@ -1,9 +1,11 @@
-import { inject, Service } from '@angular/core';
-import { AuthApiService } from '@auth/data-access/auth-api.service';
-import { AuthSessionService } from './auth-session.service';
-import { LoginCredentials } from '@auth/data-access/models/login-credentials';
-import { ValidationError } from '@angular/forms/signals';
 import { HttpErrorResponse } from '@angular/common/http';
+import { inject, Service } from '@angular/core';
+import { ValidationError } from '@angular/forms/signals';
+
+import { AuthApiService } from '@auth/data-access/auth-api.service';
+import { LoginCredentials } from '@auth/data-access/models/login-credentials';
+
+import { AuthSessionService } from './auth-session.service';
 
 @Service()
 export class AuthFacade {

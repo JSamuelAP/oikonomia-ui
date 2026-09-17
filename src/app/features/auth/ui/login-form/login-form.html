@@ -1,0 +1,45 @@
+<form [formRoot]="loginForm" class="flex flex-col gap-4">
+  <div>
+    <p-floatlabel variant="on">
+      <input pInputText id="email" [formField]="loginForm.email" autocomplete="email" [fluid]="true" pSize="large" />
+      <label for="email">Correo electrónico</label>
+    </p-floatlabel>
+    @if (loginForm.email().touched() && loginForm.email().invalid()) {
+      @for (error of loginForm.email().errors(); track error.kind) {
+        <p-message severity="error" size="small" variant="simple">{{ error.message }}</p-message>
+      }
+    }
+  </div>
+  <div>
+    <p-floatlabel variant="on">
+      <input
+        pInputPassword
+        id="password"
+        [formField]="loginForm.password"
+        autocomplete="current-password"
+        [fluid]="true"
+        pSize="large"
+      />
+      <label for="password">Contraseña</label>
+    </p-floatlabel>
+    @if (loginForm.password().touched() && loginForm.password().invalid()) {
+      @for (error of loginForm.password().errors(); track error.kind) {
+        <p-message severity="error" size="small" variant="simple">{{ error.message }}</p-message>
+      }
+    }
+  </div>
+  @for (error of loginForm().errors(); track error.kind) {
+    <p class="text-sm text-red-600">{{ error.message }}</p>
+  }
+  <button pButton type="submit" [disabled]="loginForm().submitting()" size="large">
+    @if (loginForm().submitting()) {
+      Ingresando...
+    } @else {
+      Ingresar
+    }
+  </button>
+  <p class="text-center text-sm">
+    ¿No tienes una cuenta?
+    <a routerLink="/signup" class="text-primary-600 hover:text-primary-700 ml-1">Regístrate</a>
+  </p>
+</form>

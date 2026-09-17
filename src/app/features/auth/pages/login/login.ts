@@ -1,0 +1,23 @@
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { ValidationError } from '@angular/forms/signals';
+import { LoginCredentials } from '@auth/data-access/models/login-credentials';
+import { LoginForm } from '@auth/ui/login-form/login-form';
+import { AuthFacade } from '@core/auth/auth.facade';
+
+@Component({
+  selector: 'app-login',
+  imports: [LoginForm],
+  templateUrl: './login.html',
+})
+export class Login {
+  private readonly authFacade = inject(AuthFacade);
+  private readonly router = inject(Router);
+
+  protected readonly handleLogin = async (credentials: LoginCredentials): Promise<ValidationError | void> => {
+    const error = await this.authFacade.login(credentials);
+    if (error) return error;
+
+    await this.router.navigateByUrl('/');
+  };
+}

@@ -71,6 +71,7 @@ jobs:
           cat > src/environments/environment.ts <<EOF
           export const environment = {
             production: true,
+            apiUrl: '',
             primeUiLicense: '${PRIME_UI_LICENSE}'
           };
           EOF

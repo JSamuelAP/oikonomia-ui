@@ -1,5 +1,4 @@
 import { Component, input, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputPasswordModule } from 'primeng/inputpassword';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -9,16 +8,7 @@ import { MessageModule } from 'primeng/message';
 import { LoginCredentials } from '@auth/data-access/models/login-credentials';
 
 @Component({
-  imports: [
-    InputTextModule,
-    InputPasswordModule,
-    ButtonModule,
-    RouterLink,
-    FloatLabelModule,
-    FormField,
-    FormRoot,
-    MessageModule,
-  ],
+  imports: [InputTextModule, InputPasswordModule, ButtonModule, FloatLabelModule, FormField, FormRoot, MessageModule],
   selector: 'app-login-form',
   templateUrl: './login-form.html',
 })

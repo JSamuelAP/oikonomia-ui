@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ValidationError } from '@angular/forms/signals';
 import { LoginCredentials } from '@auth/data-access/models/login-credentials';
 import { LoginForm } from '@auth/ui/login-form/login-form';
@@ -7,7 +7,7 @@ import { AuthFacade } from '@core/auth/auth.facade';
 
 @Component({
   selector: 'app-login',
-  imports: [LoginForm],
+  imports: [LoginForm, RouterLink],
   templateUrl: './login.html',
 })
 export class Login {

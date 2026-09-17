@@ -9,7 +9,12 @@
         <h1 class="text-5xl font-bold">Bienvenido</h1>
         <p class="mt-1 text-sm">Ingresa tus datos para continuar</p>
       </div>
-      <app-login-form [onSubmit]="handleLogin" />
+      <app-login-form [onSubmit]="handleLogin">
+        <p footer class="text-center text-sm">
+          ¿No tienes una cuenta?
+          <a routerLink="/signup" class="text-primary-600 hover:text-primary-700 ml-1">Regístrate</a>
+        </p>
+      </app-login-form>
     </div>
   </div>
 </div>

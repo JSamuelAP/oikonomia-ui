@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { ValidationError } from '@angular/forms/signals';
+import { firstValueFrom } from 'rxjs';
 
 import { AuthApiService } from './auth-api.service';
 import { AuthSessionService } from './auth-session.service';
@@ -14,7 +15,7 @@ export class AuthFacade {
 
   async login(credentials: LoginCredentials): Promise<ValidationError | void> {
     try {
-      const { accessToken } = await this.authApi.login(credentials);
+      const { accessToken } = await firstValueFrom(this.authApi.login(credentials));
       this.session.setAccessToken(accessToken);
       return;
     } catch (error) {

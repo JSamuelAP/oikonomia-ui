@@ -19,6 +19,6 @@ export class Login {
     const error = await this.authFacade.login(credentials);
     if (error) return error;
 
-    await this.router.navigateByUrl('/');
+    await this.router.navigateByUrl('/dashboard');
   };
 }

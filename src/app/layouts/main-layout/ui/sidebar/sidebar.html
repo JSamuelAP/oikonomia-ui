@@ -1,0 +1,33 @@
+@if (open()) {
+  <div
+    class="fixed inset-0 z-30 bg-black/40 lg:hidden"
+    (click)="closed.emit()"
+    (keydown.enter)="closed.emit()"
+    (keydown.space)="closed.emit()"
+    tabindex="0"
+    role="button"
+    aria-label="Cerrar menú lateral"
+  ></div>
+}
+
+<aside
+  class="fixed inset-y-0 left-0 z-40 flex h-screen w-64 flex-col border-r border-gray-200 bg-white transition-transform duration-200 ease-in-out lg:sticky lg:top-0 lg:translate-x-0"
+  [class.-translate-x-full]="!open()"
+  [class.translate-x-0]="open()"
+>
+  <nav class="flex-1 overflow-y-auto p-4 sm:pt-6">
+    <a href="https://flowbite.com/" class="mb-8 flex items-center">
+      <span class="text-heading self-center text-2xl font-bold whitespace-nowrap">Oikonomía</span>
+    </a>
+    <ul class="space-y-2 font-medium">
+      @for (item of items; track item.label) {
+        <li>
+          <a href="#" class="hover:text-primary flex items-center rounded-sm p-2 hover:bg-gray-50">
+            <svg [pIcon]="item.icon" [size]="20"></svg>
+            <span class="ms-3">{{ item.label }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+</aside>

@@ -40,4 +40,14 @@ export class AuthFacade {
       return { kind: 'unknown' satisfies SignupErrorKind, message: 'Ocurrió un error, intenta de nuevo' };
     }
   }
+
+  async logout(): Promise<void> {
+    try {
+      await firstValueFrom(this.authApi.logout());
+    } catch (error) {
+      console.error('Logout API call failed:', error);
+    } finally {
+      this.session.clear();
+    }
+  }
 }

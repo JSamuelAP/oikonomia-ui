@@ -2,7 +2,7 @@
   <app-sidebar [open]="sidebarOpen()" (closed)="closeSidebar()" />
   <div class="flex min-w-0 flex-1 flex-col gap-4 p-4 sm:p-6">
     <app-header (menuToggle)="toggleSidebar()">
-      <p-avatar label="JS" shape="circle" />
+      <app-user-menu />
     </app-header>
     <main class="flex-1 overflow-y-auto">
       <router-outlet />

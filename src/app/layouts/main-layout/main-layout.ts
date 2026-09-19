@@ -1,12 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AvatarModule } from 'primeng/avatar';
 
 import { Header } from './ui/header/header';
 import { Sidebar } from './ui/sidebar/sidebar';
+import { UserMenu } from './ui/user-menu/user-menu';
 
 @Component({
-  imports: [AvatarModule, Header, RouterOutlet, Sidebar],
+  imports: [Header, RouterOutlet, Sidebar, UserMenu],
   selector: 'app-main-layout',
   templateUrl: './main-layout.html',
 })

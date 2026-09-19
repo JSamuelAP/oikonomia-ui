@@ -1,0 +1,15 @@
+<p-avatar
+  label="JS"
+  shape="circle"
+  (click)="menu.toggle($event)"
+  class="bg-primary-50! cursor-pointer select-none"
+  [pt]="{ label: { class: 'text-primary' } }"
+/>
+<p-menu #menu [model]="items" [popup]="true">
+  <ng-template #start>
+    <div class="p-4 pb-2 text-sm">
+      <div class="font-bold">José Samuel</div>
+      <div class="truncate">name@email.com</div>
+    </div>
+  </ng-template>
+</p-menu>

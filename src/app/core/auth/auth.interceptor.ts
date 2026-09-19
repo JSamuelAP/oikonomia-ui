@@ -17,7 +17,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const attach = (token: string) =>
     req.clone({
       setHeaders: {
-        Authrorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
   const authReq = session.accessToken ? attach(session.accessToken) : req;

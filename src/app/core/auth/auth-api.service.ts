@@ -33,4 +33,10 @@ export class AuthApiService {
       context: new HttpContext().set(SKIP_AUTH, true),
     });
   }
+
+  logout(): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/logout`, null, {
+      withCredentials: true,
+    });
+  }
 }

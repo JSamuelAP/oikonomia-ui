@@ -1,5 +1,5 @@
 <p-avatar
-  label="JS"
+  [label]="initials()"
   shape="circle"
   (click)="menu.toggle($event)"
   class="bg-primary-50! cursor-pointer select-none"
@@ -8,8 +8,11 @@
 <p-menu #menu [model]="items" [popup]="true">
   <ng-template #start>
     <div class="p-4 pb-2 text-sm">
-      <div class="font-bold">José Samuel</div>
-      <div class="truncate">name@email.com</div>
+      @let u = user();
+      @if (u) {
+        <div class="font-bold">{{ u.firstName }} {{ u.lastName }}</div>
+        <div class="truncate">{{ u.email }}</div>
+      }
     </div>
   </ng-template>
 </p-menu>

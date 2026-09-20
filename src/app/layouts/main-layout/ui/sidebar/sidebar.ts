@@ -1,8 +1,9 @@
 import { Component, input, output } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { PIcon } from '@primeicons/angular/p-icon';
 
 @Component({
-  imports: [PIcon],
+  imports: [PIcon, RouterLink],
   selector: 'app-sidebar',
   templateUrl: './sidebar.html',
 })

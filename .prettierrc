@@ -18,6 +18,7 @@
     "^@environments/(.*)$",
     "^@shared/(.*)$",
     "^@auth/(.*)$",
+    "^@categories/(.*)$",
     "",
     "^[./]"
   ],

@@ -1,0 +1,18 @@
+<div class="overflow-hidden rounded-lg bg-white shadow-sm">
+  <div class="flex items-center justify-between bg-gray-100 p-4">
+    <div>
+      <h2 class="text-2xl font-semibold">{{ display().title }}</h2>
+      <span>{{ display().subtitle }}</span>
+    </div>
+    <p-tag [severity]="display().severity" [value]="categories().length | i18nPlural: tagMap" />
+  </div>
+  <div class="p-4">
+    <ul>
+      @for (category of categories(); track category.id) {
+        <app-category-list-item [category]="category" />
+      } @empty {
+        <p class="py-2 text-center">Aún no hay categorías, ¡comienza creando una!</p>
+      }
+    </ul>
+  </div>
+</div>

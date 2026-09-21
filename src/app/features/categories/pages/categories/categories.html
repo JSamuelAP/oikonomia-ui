@@ -1,1 +1,31 @@
-<p>categories works!</p>
+<div class="flex flex-col justify-between md:flex-row md:items-center">
+  <h1 class="mt-4 mb-5 text-3xl font-bold">Catálogo de Categorías</h1>
+  <div class="flex flex-col gap-4 sm:flex-row">
+    <p-inputgroup>
+      <p-inputgroup-addon>
+        <svg data-p-icon="search" />
+      </p-inputgroup-addon>
+      <p-iconfield>
+        <input
+          pInputText
+          placeholder="Buscar"
+          pSize="large"
+          [value]="searchQuery()"
+          (input)="searchQuery.set($any($event.target).value)"
+        />
+        @if (searchQuery()) {
+          <p-inputicon (click)="searchQuery.set('')" class="cursor-pointer">
+            <svg data-p-icon="times"></svg>
+          </p-inputicon>
+        }
+      </p-iconfield>
+    </p-inputgroup>
+    <button pButton size="large" class="sm:w-3xs"><svg data-p-icon="plus"></svg> Nueva categoría</button>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+  <app-category-list [categories]="incomeCategories()" flowType="INCOME" />
+
+  <app-category-list [categories]="expenseCategories()" flowType="EXPENSE" />
+</div>

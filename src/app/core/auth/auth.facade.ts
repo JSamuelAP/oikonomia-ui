@@ -36,7 +36,7 @@ export class AuthFacade {
 
   async signup(data: SignupRequest): Promise<ValidationError | void> {
     try {
-      await this.authApi.signup(data);
+      await firstValueFrom(this.authApi.signup(data));
       return;
     } catch (error) {
       if (error instanceof HttpErrorResponse && error.status === 409) {

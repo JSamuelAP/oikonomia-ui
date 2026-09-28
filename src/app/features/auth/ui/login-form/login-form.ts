@@ -4,12 +4,12 @@ import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputPasswordModule } from 'primeng/inputpassword';
 import { InputTextModule } from 'primeng/inputtext';
-import { MessageModule } from 'primeng/message';
 
 import { LoginCredentials } from '@core/auth/models/login-credentials';
+import { FieldErrors } from '@shared/ui/field-errors/field-errors';
 
 @Component({
-  imports: [ButtonModule, FloatLabelModule, FormField, FormRoot, InputPasswordModule, InputTextModule, MessageModule],
+  imports: [ButtonModule, FloatLabelModule, FormField, FormRoot, InputPasswordModule, InputTextModule, FieldErrors],
   selector: 'app-login-form',
   templateUrl: './login-form.html',
 })

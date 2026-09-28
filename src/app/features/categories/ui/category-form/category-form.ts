@@ -4,10 +4,10 @@ import { Spinner } from '@primeicons/angular/spinner';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
-import { MessageModule } from 'primeng/message';
 import { SelectButtonModule } from 'primeng/selectbutton';
 
 import { FlowType } from '@shared/models/flow-type';
+import { FieldErrors } from '@shared/ui/field-errors/field-errors';
 import { CreateCategoryRequest } from '@categories/data-access/models/create-category-request';
 
 @Component({
@@ -17,9 +17,9 @@ import { CreateCategoryRequest } from '@categories/data-access/models/create-cat
     FormField,
     FormRoot,
     InputTextModule,
-    MessageModule,
     SelectButtonModule,
     Spinner,
+    FieldErrors,
   ],
   selector: 'app-category-form',
   templateUrl: './category-form.html',

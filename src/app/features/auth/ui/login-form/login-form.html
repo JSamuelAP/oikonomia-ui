@@ -4,11 +4,7 @@
       <input pInputText id="email" [formField]="loginForm.email" autocomplete="email" [fluid]="true" pSize="large" />
       <label for="email">Correo electrónico</label>
     </p-floatlabel>
-    @if (loginForm.email().touched() && loginForm.email().invalid()) {
-      @for (error of loginForm.email().errors(); track error.kind) {
-        <p-message severity="error" size="small" variant="simple">{{ error.message }}</p-message>
-      }
-    }
+    <app-field-errors [field]="loginForm.email" />
   </div>
   <div>
     <p-floatlabel variant="on">
@@ -22,15 +18,9 @@
       />
       <label for="password">Contraseña</label>
     </p-floatlabel>
-    @if (loginForm.password().touched() && loginForm.password().invalid()) {
-      @for (error of loginForm.password().errors(); track error.kind) {
-        <p-message severity="error" size="small" variant="simple">{{ error.message }}</p-message>
-      }
-    }
+    <app-field-errors [field]="loginForm.password" />
   </div>
-  @for (error of loginForm().errors(); track error.kind) {
-    <p class="text-sm text-red-600">{{ error.message }}</p>
-  }
+  <app-field-errors [field]="loginForm" />
   <button pButton type="submit" [disabled]="loginForm().submitting()" size="large">
     @if (loginForm().submitting()) {
       Ingresando...

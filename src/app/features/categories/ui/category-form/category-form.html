@@ -4,11 +4,7 @@
       <label for="name">Nombre</label>
       <input pInputText id="name" [formField]="categoryForm.name" autocomplete="off" [fluid]="true" pSize="large" />
     </p-floatlabel>
-    @if (categoryForm.name().touched() && categoryForm.name().invalid()) {
-      @for (error of categoryForm.name().errors(); track error.kind) {
-        <p-message severity="error" size="small" variant="simple">{{ error.message }}</p-message>
-      }
-    }
+    <app-field-errors [field]="categoryForm.name" />
   </div>
   <div>
     <p-selectbutton
@@ -25,15 +21,9 @@
         </span>
       </ng-template>
     </p-selectbutton>
-    @if (categoryForm.flowType().touched() && categoryForm.flowType().invalid()) {
-      @for (error of categoryForm.flowType().errors(); track error.kind) {
-        <p-message severity="error" size="small" variant="simple">{{ error.message }}</p-message>
-      }
-    }
+    <app-field-errors [field]="categoryForm.flowType" />
   </div>
-  @for (error of categoryForm().errors(); track error.kind) {
-    <p-message severity="error" size="small" variant="simple">{{ error.message }}</p-message>
-  }
+  <app-field-errors [field]="categoryForm" />
   <div class="mt-6 flex justify-end gap-2">
     <button pButton type="button" (click)="canceled.emit()" severity="secondary" variant="outlined" size="large">
       Cancelar

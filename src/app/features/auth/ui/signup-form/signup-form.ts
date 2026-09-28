@@ -19,10 +19,10 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputPasswordModule } from 'primeng/inputpassword';
 import { InputTextModule } from 'primeng/inputtext';
-import { MessageModule } from 'primeng/message';
 import { PopoverModule } from 'primeng/popover';
 
 import { SignupRequest } from '@core/auth/models/signup-request';
+import { FieldErrors } from '@shared/ui/field-errors/field-errors';
 import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_PATTERN } from '@auth/utils/password-policy';
 
 import { PasswordRequirements } from '../password-requirements/password-requirements';
@@ -39,9 +39,9 @@ import { PasswordRequirements } from '../password-requirements/password-requirem
     InputIconModule,
     InputPasswordModule,
     InputTextModule,
-    MessageModule,
     PopoverModule,
     PasswordRequirements,
+    FieldErrors,
   ],
   selector: 'app-signup-form',
   templateUrl: './signup-form.html',

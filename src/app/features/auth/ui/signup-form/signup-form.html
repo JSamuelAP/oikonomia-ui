@@ -11,11 +11,7 @@
       />
       <label for="first-name">Nombre</label>
     </p-floatlabel>
-    @if (signupForm.firstName().touched() && signupForm.firstName().invalid()) {
-      @for (error of signupForm.firstName().errors(); track error.kind) {
-        <p-message severity="error" size="small" variant="simple">{{ error.message }}</p-message>
-      }
-    }
+    <app-field-errors [field]="signupForm.firstName" />
   </div>
 
   <div>
@@ -30,11 +26,7 @@
       />
       <label for="last-name">Apellidos</label>
     </p-floatlabel>
-    @if (signupForm.lastName().touched() && signupForm.lastName().invalid()) {
-      @for (error of signupForm.lastName().errors(); track error.kind) {
-        <p-message severity="error" size="small" variant="simple">{{ error.message }}</p-message>
-      }
-    }
+    <app-field-errors [field]="signupForm.lastName" />
   </div>
 
   <div>
@@ -42,11 +34,7 @@
       <input pInputText id="email" [formField]="signupForm.email" autocomplete="email" [fluid]="true" pSize="large" />
       <label for="email">Correo electrónico</label>
     </p-floatlabel>
-    @if (signupForm.email().touched() && signupForm.email().invalid()) {
-      @for (error of signupForm.email().errors(); track error.kind) {
-        <p-message severity="error" size="small" variant="simple">{{ error.message }}</p-message>
-      }
-    }
+    <app-field-errors [field]="signupForm.email" />
   </div>
 
   <div>
@@ -80,13 +68,7 @@
       </ng-template>
     </p-popover>
 
-    @if (signupForm.password().touched() && signupForm.password().invalid()) {
-      <p-message severity="error" size="small" variant="simple">
-        @for (error of signupForm.password().errors(); track error.kind) {
-          <p-message severity="error" size="small" variant="simple">{{ error.message }}</p-message>
-        }
-      </p-message>
-    }
+    <app-field-errors [field]="signupForm.password" />
   </div>
 
   <div>
@@ -111,11 +93,7 @@
       </p-iconfield>
       <label for="confirm-password">Confirmar contraseña</label>
     </p-floatlabel>
-    @if (signupForm.confirmPassword().touched() && signupForm.confirmPassword().invalid()) {
-      @for (error of signupForm.confirmPassword().errors(); track error.kind) {
-        <p-message severity="error" size="small" variant="simple">{{ error.message }}</p-message>
-      }
-    }
+    <app-field-errors [field]="signupForm.confirmPassword" />
   </div>
 
   <button pButton type="submit" [disabled]="signupForm().submitting()" size="large" class="mt-2">

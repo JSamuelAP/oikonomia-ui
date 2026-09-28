@@ -1,0 +1,23 @@
+/* :host ::ng-deep .p-togglebutton.p-togglebutton-checked:has([data-value="INCOME"]) {
+  background: var(--p-green-500);
+  border-color: var(--p-green-500);
+  color: var(--p-green-500-contrast);
+} */
+
+:host ::ng-deep .p-togglebutton.p-togglebutton-checked:has([data-value='INCOME']) .p-togglebutton-content {
+  background: var(--p-green-50);
+  color: var(--p-green-700);
+  /* box-shadow: var(--p-togglebutton-content-checked-shadow); */
+}
+
+/* :host ::ng-deep .p-togglebutton.p-togglebutton-checked:has([data-value="EXPENSE"]) {
+  background: var(--p-red-500);
+  border-color: var(--p-red-500);
+  color: var(--p-red-500-contrast);
+} */
+
+:host ::ng-deep .p-togglebutton.p-togglebutton-checked:has([data-value='EXPENSE']) .p-togglebutton-content {
+  background: var(--p-red-50);
+  color: var(--p-red-700);
+  /* box-shadow: var(--p-togglebutton-content-checked-shadow); */
+}

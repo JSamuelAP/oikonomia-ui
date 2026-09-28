@@ -20,7 +20,9 @@
         }
       </p-iconfield>
     </p-inputgroup>
-    <button pButton size="large" class="sm:w-3xs"><svg data-p-icon="plus"></svg> Nueva categoría</button>
+    <button pButton (click)="openCreateDialog()" size="large" class="sm:w-3xs">
+      <svg data-p-icon="plus"></svg> Nueva categoría
+    </button>
   </div>
 </div>
 
@@ -29,3 +31,15 @@
 
   <app-category-list [categories]="expenseCategories()" flowType="EXPENSE" />
 </div>
+
+<p-dialog
+  header="Nueva categoría"
+  [(visible)]="showCreateDialog"
+  [modal]="true"
+  [draggable]="false"
+  [style]="{ width: '20rem' }"
+>
+  <ng-template #content>
+    <app-category-form [onSubmit]="handleCreateCategory" (canceled)="closeCreateDialog()" />
+  </ng-template>
+</p-dialog>

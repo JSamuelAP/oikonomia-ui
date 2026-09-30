@@ -4,15 +4,17 @@
   </div>
   <div class="flex flex-col justify-center px-8 py-12 sm:px-12">
     <div class="mx-auto w-full max-w-sm">
-      <span class="block text-center text-2xl font-bold md:text-left">Oikonomía</span>
+      <span class="font-display text-primary block text-center text-3xl font-bold md:text-left">Oikonomía</span>
       <div class="mt-10 mb-8 text-center md:text-left">
-        <h1 class="text-4xl font-bold">Crear cuenta</h1>
-        <p class="mt-2 text-sm">Regístrate para empezar a usar Oikonomía</p>
+        <h1 class="text-5xl font-bold">Crear cuenta</h1>
+        <p class="text-accent mt-1 text-sm">Regístrate para empezar a usar Oikonomía</p>
       </div>
       <app-signup-form [onSubmit]="handleSignup">
         <p footer class="mt-6 text-center text-sm">
           ¿Ya tienes cuenta?
-          <a routerLink="/login" class="text-primary-600 hover:text-primary-500 ml-1 font-medium">Inicia sesión</a>
+          <a routerLink="/login" class="text-primary hover:text-primary-emphasis ml-1 font-semibold hover:underline"
+            >Inicia sesión</a
+          >
         </p>
       </app-signup-form>
     </div>

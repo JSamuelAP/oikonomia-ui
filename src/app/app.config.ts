@@ -1,12 +1,12 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, provideAppInitializer, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import Aura from '@primeuix/themes/aura';
 import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 
 import { authInterceptor } from '@core/auth/auth.interceptor';
 import { initAuthSession } from '@core/auth/init-auth-session';
+import { AppTheme } from '@core/theme/app-theme';
 import { environment } from '@environments/environment';
 
 import { routes } from './app.routes';
@@ -20,7 +20,7 @@ export const appConfig: ApplicationConfig = {
     MessageService,
     providePrimeNG({
       theme: {
-        preset: Aura,
+        preset: AppTheme,
         options: {
           darkModeSelector: false,
         },

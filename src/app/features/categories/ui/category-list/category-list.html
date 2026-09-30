@@ -1,8 +1,8 @@
-<div class="overflow-hidden rounded-lg bg-white shadow-sm">
-  <div class="flex items-center justify-between bg-gray-100 p-4">
+<div class="bg-surface-0 rounded-border overflow-hidden shadow-sm">
+  <div class="bg-emphasis flex items-center justify-between p-4">
     <div>
-      <h2 class="text-2xl font-semibold">{{ display().title }}</h2>
-      <span>{{ display().subtitle }}</span>
+      <h2 class="text-primary text-3xl font-bold">{{ display().title }}</h2>
+      <span class="text-accent text-sm font-normal">{{ display().subtitle }}</span>
     </div>
     <p-tag [severity]="display().severity" [value]="categories().length | i18nPlural: tagMap" />
   </div>
@@ -11,7 +11,7 @@
       @for (category of categories(); track category.id) {
         <app-category-list-item [category]="category" />
       } @empty {
-        <p class="py-2 text-center">Aún no hay categorías, ¡comienza creando una!</p>
+        <p class="text-muted-color py-2 text-center">Aún no hay categorías, ¡comienza creando una!</p>
       }
     </ul>
   </div>

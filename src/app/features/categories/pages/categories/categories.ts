@@ -12,10 +12,13 @@ import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { CategoryStore } from '@shared/category/category.store';
+import { Category } from '@shared/category/models/category';
 import { CategoryFacade } from '@categories/data-access/category.facade';
-import { CreateCategoryRequest } from '@categories/data-access/models/create-category-request';
+import { CategoryFormValue } from '@categories/models/category-form-value';
 import { CategoryForm } from '@categories/ui/category-form/category-form';
 import { CategoryList } from '@categories/ui/category-list/category-list';
+
+type CategoryDialogState = { mode: 'create' } | { mode: 'edit'; category: Category };
 
 @Component({
   imports: [
@@ -40,7 +43,8 @@ export class Categories {
   private readonly categoryFacade = inject(CategoryFacade);
 
   protected readonly searchQuery = signal('');
-  protected readonly showCreateDialog = signal(false);
+  protected readonly dialogState = signal<CategoryDialogState | null>(null);
+  protected readonly renderedState = signal<CategoryDialogState | null>(null);
 
   protected readonly incomeCategories = computed(() => {
     const query = this.searchQuery().toLowerCase().trim();
@@ -57,16 +61,35 @@ export class Categories {
   });
 
   protected openCreateDialog() {
-    this.showCreateDialog.set(true);
+    this.dialogState.set({ mode: 'create' });
+    this.renderedState.set({ mode: 'create' });
   }
 
-  protected closeCreateDialog() {
-    this.showCreateDialog.set(false);
+  protected openEditDialog(category: Category) {
+    this.dialogState.set({ mode: 'edit', category });
+    this.renderedState.set({ mode: 'edit', category });
   }
 
-  protected readonly handleCreateCategory = async (data: CreateCategoryRequest): Promise<ValidationError | void> => {
+  protected closeDialog() {
+    this.dialogState.set(null);
+  }
+
+  protected handleDialogHidden() {
+    // Para desaparecer el formulario hasta que el dialogo se haya cerrado completamente
+    this.renderedState.set(null);
+  }
+
+  protected readonly handleCreateCategory = async (data: CategoryFormValue): Promise<ValidationError | void> => {
     const error = await this.categoryFacade.create(data);
     if (error) return error;
-    this.showCreateDialog.set(false);
+    this.closeDialog();
   };
+
+  protected handleUpdateCategory(id: string): (data: CategoryFormValue) => Promise<ValidationError | void> {
+    return async (data: CategoryFormValue): Promise<ValidationError | void> => {
+      const error = await this.categoryFacade.update(id, data);
+      if (error) return error;
+      this.closeDialog();
+    };
+  }
 }

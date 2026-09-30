@@ -27,19 +27,27 @@
 </div>
 
 <div class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-  <app-category-list [categories]="incomeCategories()" flowType="INCOME" />
+  <app-category-list [categories]="incomeCategories()" flowType="INCOME" (edit)="openEditDialog($event)" />
 
-  <app-category-list [categories]="expenseCategories()" flowType="EXPENSE" />
+  <app-category-list [categories]="expenseCategories()" flowType="EXPENSE" (edit)="openEditDialog($event)" />
 </div>
 
 <p-dialog
-  header="Nueva categoría"
-  [(visible)]="showCreateDialog"
+  [visible]="dialogState() !== null"
+  (visibleChange)="!$event && closeDialog()"
+  (onHide)="handleDialogHidden()"
+  [header]="dialogState()?.mode === 'edit' ? 'Editar categoría' : 'Nueva categoría'"
   [modal]="true"
   [draggable]="false"
   [style]="{ width: '20rem' }"
 >
   <ng-template #content>
-    <app-category-form [onSubmit]="handleCreateCategory" (canceled)="closeCreateDialog()" />
+    @if (renderedState(); as state) {
+      <app-category-form
+        [initialValue]="state.mode === 'edit' ? state.category : undefined"
+        [onSubmit]="state.mode === 'edit' ? handleUpdateCategory(state.category.id) : handleCreateCategory"
+        (canceled)="closeDialog()"
+      />
+    }
   </ng-template>
 </p-dialog>

@@ -1,5 +1,5 @@
 import { I18nPluralPipe } from '@angular/common';
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { TagModule } from 'primeng/tag';
 
 import { Category } from '@shared/category/models/category';
@@ -15,6 +15,7 @@ import { CategoryListItem } from '../category-list-item/category-list-item';
 export class CategoryList {
   readonly categories = input<Category[]>([]);
   readonly flowType = input.required<FlowType>();
+  readonly edit = output<Category>();
 
   protected readonly display = computed(() => FLOW_TYPE_DISPLAY[this.flowType()]);
   protected readonly tagMap = {

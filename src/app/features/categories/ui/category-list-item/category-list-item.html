@@ -4,9 +4,11 @@
     <button pButton iconOnly rounded variant="text" aria-label="">
       <svg data-p-icon="eye" [size]="18"></svg>
     </button>
-    <button pButton iconOnly rounded variant="text" aria-label="">
-      <svg data-p-icon="pencil" [size]="18"></svg>
-    </button>
+    @if (false) {
+      <button pButton (click)="handleEditClick()" iconOnly rounded variant="text" aria-label="">
+        <svg data-p-icon="pencil" [size]="18"></svg>
+      </button>
+    }
     <button pButton iconOnly rounded variant="text" aria-label="">
       <svg data-p-icon="trash" [size]="18"></svg>
     </button>

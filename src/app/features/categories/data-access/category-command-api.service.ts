@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
 
 import { CreateCategoryRequest } from './models/create-category-request';
+import { UpdateCategoryRequest } from './models/update-category-request';
 
 @Service()
 export class CategoryCommandApiService {
@@ -13,5 +14,9 @@ export class CategoryCommandApiService {
 
   create(request: CreateCategoryRequest): Observable<void> {
     return this.http.post<void>(this.baseUrl, request);
+  }
+
+  update(id: string, request: UpdateCategoryRequest): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}/${id}`, request);
   }
 }

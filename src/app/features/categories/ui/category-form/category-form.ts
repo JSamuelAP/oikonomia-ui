@@ -1,4 +1,4 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, input, linkedSignal, output } from '@angular/core';
 import { form, FormField, FormRoot, maxLength, minLength, required, ValidationError } from '@angular/forms/signals';
 import { Spinner } from '@primeicons/angular/spinner';
 import { ButtonModule } from 'primeng/button';
@@ -9,6 +9,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { FlowType } from '@shared/models/flow-type';
 import { FieldErrors } from '@shared/ui/field-errors/field-errors';
 import { CreateCategoryRequest } from '@categories/data-access/models/create-category-request';
+import { CategoryFormValue } from '@categories/models/category-form-value';
 
 @Component({
   imports: [
@@ -26,22 +27,24 @@ import { CreateCategoryRequest } from '@categories/data-access/models/create-cat
   styleUrl: './category-form.css',
 })
 export class CategoryForm {
+  readonly initialValue = input<CategoryFormValue>();
   readonly onSubmit =
     input.required<(data: CreateCategoryRequest) => Promise<ValidationError | ValidationError[] | void>>();
   readonly canceled = output<void>();
 
-  private readonly initialValue: CreateCategoryRequest = { name: '', flowType: 'INCOME' };
-  private formModel = signal(this.initialValue);
-  private readonly NAME_MIN_LENGTH = 2;
-  private readonly NAME_MAX_LENGTH = 50;
-
+  protected readonly categoryModel = linkedSignal<CategoryFormValue>(
+    () => this.initialValue() ?? { name: '', flowType: 'EXPENSE' },
+  );
   protected flowTypeOptions = [
     { label: 'Ingreso', value: 'INCOME' satisfies FlowType, icon: 'pi pi-arrow-down-left' },
     { label: 'Gasto', value: 'EXPENSE' satisfies FlowType, icon: 'pi pi-arrow-up-right' },
   ];
 
+  private readonly NAME_MIN_LENGTH = 2;
+  private readonly NAME_MAX_LENGTH = 50;
+
   protected categoryForm = form(
-    this.formModel,
+    this.categoryModel,
     (path) => {
       required(path.name, { when: ({ state }) => state.touched(), message: 'Nombre requerido.' });
       minLength(path.name, this.NAME_MIN_LENGTH, { message: `Mínimo ${this.NAME_MIN_LENGTH} caracteres.` });
@@ -54,7 +57,7 @@ export class CategoryForm {
         action: async (field) => {
           const error = await this.onSubmit()(field().value());
           if (error) return error;
-          field().reset(this.initialValue);
+          field().reset(this.initialValue());
           return undefined;
         },
       },

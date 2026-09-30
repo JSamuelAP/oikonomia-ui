@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Eye } from '@primeicons/angular/eye';
 import { Pencil } from '@primeicons/angular/pencil';
 import { Trash } from '@primeicons/angular/trash';
@@ -13,4 +13,9 @@ import { Category } from '@shared/category/models/category';
 })
 export class CategoryListItem {
   readonly category = input.required<Category>();
+  readonly edit = output<Category>();
+
+  protected handleEditClick() {
+    this.edit.emit(this.category());
+  }
 }

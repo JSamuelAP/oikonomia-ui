@@ -27,27 +27,54 @@
 </div>
 
 <div class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-  <app-category-list [categories]="incomeCategories()" flowType="INCOME" (edit)="openEditDialog($event)" />
-
-  <app-category-list [categories]="expenseCategories()" flowType="EXPENSE" (edit)="openEditDialog($event)" />
+  <app-category-list
+    [categories]="incomeCategories()"
+    flowType="INCOME"
+    (show)="openViewDialog($event)"
+    (edit)="openEditDialog($event)"
+  />
+  <app-category-list
+    [categories]="expenseCategories()"
+    flowType="EXPENSE"
+    (show)="openViewDialog($event)"
+    (edit)="openEditDialog($event)"
+  />
 </div>
 
 <p-dialog
-  [visible]="dialogState() !== null"
-  (visibleChange)="!$event && closeDialog()"
-  (onHide)="handleDialogHidden()"
-  [header]="dialogState()?.mode === 'edit' ? 'Editar categoría' : 'Nueva categoría'"
+  [visible]="formDialogState() !== null"
+  (visibleChange)="!$event && closeFormDialog()"
+  (onHide)="handleFormDialogHidden()"
+  [header]="formDialogState()?.mode === 'edit' ? 'Editar categoría' : 'Nueva categoría'"
   [modal]="true"
   [draggable]="false"
   [style]="{ width: '20rem' }"
 >
   <ng-template #content>
-    @if (renderedState(); as state) {
+    @if (renderedFormState(); as state) {
       <app-category-form
         [initialValue]="state.mode === 'edit' ? state.category : undefined"
         [onSubmit]="state.mode === 'edit' ? handleUpdateCategory(state.category.id) : handleCreateCategory"
-        (canceled)="closeDialog()"
+        (canceled)="closeFormDialog()"
       />
+    }
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  [visible]="viewDialogVisible()"
+  (visibleChange)="!$event && closeViewDialog()"
+  (onHide)="handleViewDialogHidden()"
+  header="Detalles de la categoría"
+  [modal]="true"
+  [draggable]="false"
+  [style]="{ width: '32rem' }"
+>
+  <ng-template #content>
+    @if (renderViewDialog()) {
+      @if (categoryDetail.value(); as category) {
+        <app-category-detail-view [category]="category" />
+      }
     }
   </ng-template>
 </p-dialog>

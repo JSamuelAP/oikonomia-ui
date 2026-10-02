@@ -9,7 +9,7 @@
   <div class="p-4">
     <ul>
       @for (category of categories(); track category.id) {
-        <app-category-list-item [category]="category" (edit)="edit.emit($event)" />
+        <app-category-list-item [category]="category" (show)="show.emit($event)" (edit)="edit.emit($event)" />
       } @empty {
         <p class="text-muted-color py-2 text-center">Aún no hay categorías, ¡comienza creando una!</p>
       }

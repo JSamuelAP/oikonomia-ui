@@ -1,7 +1,7 @@
 <li class="bg-surface-50 mb-3 flex justify-between rounded-md p-4">
   <span class="font-display text-xl font-bold">{{ category().name }}</span>
   <div class="flex gap-4">
-    <button pButton iconOnly rounded variant="text" aria-label="">
+    <button pButton (click)="handleShowClick()" iconOnly rounded variant="text" aria-label="">
       <svg data-p-icon="eye" [size]="18"></svg>
     </button>
     @if (false) {

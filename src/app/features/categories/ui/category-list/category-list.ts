@@ -15,6 +15,7 @@ import { CategoryListItem } from '../category-list-item/category-list-item';
 export class CategoryList {
   readonly categories = input<Category[]>([]);
   readonly flowType = input.required<FlowType>();
+  readonly show = output<Category>();
   readonly edit = output<Category>();
 
   protected readonly display = computed(() => FLOW_TYPE_DISPLAY[this.flowType()]);

@@ -13,7 +13,12 @@ import { Category } from '@shared/category/models/category';
 })
 export class CategoryListItem {
   readonly category = input.required<Category>();
+  readonly show = output<Category>();
   readonly edit = output<Category>();
+
+  protected handleShowClick() {
+    this.show.emit(this.category());
+  }
 
   protected handleEditClick() {
     this.edit.emit(this.category());

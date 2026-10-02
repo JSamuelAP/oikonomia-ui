@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
 
 import { Category } from './models/category';
+import { CategoryDetail } from './models/category-detail';
 
 @Service()
 export class CategoryApiService {
@@ -13,5 +14,9 @@ export class CategoryApiService {
 
   getAll(): Observable<Category[]> {
     return this.http.get<Category[]>(this.baseUrl);
+  }
+
+  getById(id: string): Observable<CategoryDetail> {
+    return this.http.get<CategoryDetail>(`${this.baseUrl}/${id}`);
   }
 }

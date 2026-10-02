@@ -1,5 +1,7 @@
+import { registerLocaleData } from '@angular/common';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { ApplicationConfig, provideAppInitializer, provideBrowserGlobalErrorListeners } from '@angular/core';
+import localeEsMx from '@angular/common/locales/es-MX';
+import { ApplicationConfig, LOCALE_ID, provideAppInitializer, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
@@ -11,6 +13,8 @@ import { environment } from '@environments/environment';
 
 import { routes } from './app.routes';
 
+registerLocaleData(localeEsMx);
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAppInitializer(initAuthSession),
@@ -18,6 +22,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor])),
     provideRouter(routes),
     MessageService,
+    { provide: LOCALE_ID, useValue: 'es-MX' },
     providePrimeNG({
       theme: {
         preset: AppTheme,

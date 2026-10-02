@@ -6,7 +6,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectButtonModule } from 'primeng/selectbutton';
 
-import { FlowType } from '@shared/models/flow-type';
+import { FLOW_TYPE_DISPLAY, FlowType } from '@shared/models/flow-type';
 import { FieldErrors } from '@shared/ui/field-errors/field-errors';
 import { CreateCategoryRequest } from '@categories/data-access/models/create-category-request';
 import { CategoryFormValue } from '@categories/models/category-form-value';
@@ -36,8 +36,16 @@ export class CategoryForm {
     () => this.initialValue() ?? { name: '', flowType: 'EXPENSE' },
   );
   protected flowTypeOptions = [
-    { label: 'Ingreso', value: 'INCOME' satisfies FlowType, icon: 'pi pi-arrow-down-left' },
-    { label: 'Gasto', value: 'EXPENSE' satisfies FlowType, icon: 'pi pi-arrow-up-right' },
+    {
+      label: FLOW_TYPE_DISPLAY.INCOME.label,
+      value: 'INCOME' satisfies FlowType,
+      icon: FLOW_TYPE_DISPLAY.INCOME.iconClass,
+    },
+    {
+      label: FLOW_TYPE_DISPLAY.EXPENSE.label,
+      value: 'EXPENSE' satisfies FlowType,
+      icon: FLOW_TYPE_DISPLAY.EXPENSE.iconClass,
+    },
   ];
 
   private readonly NAME_MIN_LENGTH = 2;

@@ -17,6 +17,7 @@ export class CategoryList {
   readonly flowType = input.required<FlowType>();
   readonly show = output<Category>();
   readonly edit = output<Category>();
+  readonly delete = output<Category>();
 
   protected readonly display = computed(() => FLOW_TYPE_DISPLAY[this.flowType()]);
   protected readonly tagMap = {

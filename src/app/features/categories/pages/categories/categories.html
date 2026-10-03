@@ -32,12 +32,14 @@
     flowType="INCOME"
     (show)="openViewDialog($event)"
     (edit)="openEditDialog($event)"
+    (delete)="openDeleteDialog($event)"
   />
   <app-category-list
     [categories]="expenseCategories()"
     flowType="EXPENSE"
     (show)="openViewDialog($event)"
     (edit)="openEditDialog($event)"
+    (delete)="openDeleteDialog($event)"
   />
 </div>
 
@@ -78,3 +80,5 @@
     }
   </ng-template>
 </p-dialog>
+
+<p-confirmdialog />

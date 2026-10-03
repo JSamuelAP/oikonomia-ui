@@ -4,7 +4,9 @@ import { ValidationError } from '@angular/forms/signals';
 import { Plus } from '@primeicons/angular/plus';
 import { Search } from '@primeicons/angular/search';
 import { Times } from '@primeicons/angular/times';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -30,6 +32,7 @@ type CategoryFormDialogState = { mode: 'create' } | { mode: 'edit'; category: Ca
     CategoryDetailView,
     CategoryForm,
     CategoryList,
+    ConfirmDialogModule,
     DialogModule,
     IconFieldModule,
     InputGroupAddonModule,
@@ -42,11 +45,14 @@ type CategoryFormDialogState = { mode: 'create' } | { mode: 'edit'; category: Ca
   ],
   selector: 'app-categories',
   templateUrl: './categories.html',
+  providers: [ConfirmationService],
 })
 export class Categories {
   private readonly categoryApi = inject(CategoryApiService);
   private readonly categoryStore = inject(CategoryStore);
   private readonly categoryFacade = inject(CategoryFacade);
+  private confirmationService = inject(ConfirmationService);
+  private messageService = inject(MessageService);
 
   protected readonly searchQuery = signal('');
 
@@ -110,6 +116,27 @@ export class Categories {
     this.renderedFormState.set(null);
   }
 
+  protected openDeleteDialog(category: Category): void {
+    this.confirmationService.confirm({
+      message: `¿Eliminar la categoría <strong>${category.name}</strong>?<br/>Las transacciones asociadas se mantendrán sin categoría.`,
+      header: 'Eliminar categoría',
+      closable: true,
+      closeOnEscape: true,
+      icon: 'pi pi-exclamation-triangle',
+      rejectButtonProps: {
+        label: 'Cancelar',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Eliminar',
+      },
+      accept: () => {
+        this.deleteCategory(category);
+      },
+    });
+  }
+
   protected readonly handleCreateCategory = async (data: CategoryFormValue): Promise<ValidationError | void> => {
     const error = await this.categoryFacade.create(data);
     if (error) return error;
@@ -122,5 +149,19 @@ export class Categories {
       if (error) return error;
       this.closeFormDialog();
     };
+  }
+
+  private async deleteCategory(category: Category): Promise<void> {
+    const success = await this.categoryFacade.delete(category.id);
+
+    this.messageService.add(
+      success
+        ? {
+            severity: 'success',
+            summary: 'Categoría eliminada',
+            detail: `"${category.name}" se eliminó correctamente.`,
+          }
+        : { severity: 'error', summary: 'Error', detail: 'No se pudo eliminar la categoría. Intenta de nuevo.' },
+    );
   }
 }

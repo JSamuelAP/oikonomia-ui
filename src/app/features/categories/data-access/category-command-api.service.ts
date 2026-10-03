@@ -19,4 +19,8 @@ export class CategoryCommandApiService {
   update(id: string, request: UpdateCategoryRequest): Observable<void> {
     return this.http.put<void>(`${this.baseUrl}/${id}`, request);
   }
+
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
 }

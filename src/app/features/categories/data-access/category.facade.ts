@@ -44,4 +44,15 @@ export class CategoryFacade {
       return { kind: 'unknown', message: 'Ocurrió un error, intenta de nuevo' };
     }
   }
+
+  async delete(id: string): Promise<boolean> {
+    try {
+      await firstValueFrom(this.commandApi.delete(id));
+      this.store.categories.reload();
+      return true;
+    } catch (error) {
+      console.error('Delete category failed:', error);
+      return false;
+    }
+  }
 }

@@ -15,6 +15,7 @@ export class CategoryListItem {
   readonly category = input.required<Category>();
   readonly show = output<Category>();
   readonly edit = output<Category>();
+  readonly delete = output<Category>();
 
   protected handleShowClick() {
     this.show.emit(this.category());
@@ -22,5 +23,9 @@ export class CategoryListItem {
 
   protected handleEditClick() {
     this.edit.emit(this.category());
+  }
+
+  protected handleDeleteClick() {
+    this.delete.emit(this.category());
   }
 }

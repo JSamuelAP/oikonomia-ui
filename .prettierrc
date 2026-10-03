@@ -19,6 +19,7 @@
     "^@shared/(.*)$",
     "^@auth/(.*)$",
     "^@categories/(.*)$",
+    "^@transactions/(.*)$",
     "",
     "^[./]"
   ],

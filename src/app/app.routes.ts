@@ -24,13 +24,22 @@ export const routes: Routes = [
     canActivateChild: [authGuard],
     children: [
       {
+        path: 'transactions',
+        loadChildren: () => import('./features/transactions/transactions.route').then((m) => m.routes),
+      },
+      {
         path: 'categories',
         loadChildren: () => import('./features/categories/categories.routes').then((m) => m.routes),
       },
       {
         path: '**',
-        redirectTo: 'categories',
+        redirectTo: 'transactions',
       },
     ],
+  },
+
+  {
+    path: '**',
+    redirectTo: 'dashboard',
   },
 ];

@@ -1,4 +1,7 @@
-<h1 class="text-primary mt-4 mb-5 text-4xl font-bold">Transacciones</h1>
+<div class="flex flex-col justify-between md:flex-row md:items-center">
+  <h1 class="text-primary mt-4 mb-5 text-4xl font-bold">Transacciones</h1>
+  <app-month-picker [(selectedDate)]="currentMonth" />
+</div>
 <div class="bg-surface-0 border-surface p-4">
-  <app-transaction-table [transactions]="transactions()" />
+  <app-transaction-table [transactions]="transactions.value()" />
 </div>

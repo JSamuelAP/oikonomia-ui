@@ -1,16 +1,22 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 
-import { TransactionStore } from '@transactions/data-access/transaction.store';
-import { Transaction } from '@transactions/models/transaction';
+import { MonthPicker } from '@shared/ui/month-picker/month-picker';
+import { TransactionApiService } from '@transactions/data-access/transaction-api.service';
 import { TransactionTable } from '@transactions/ui/transaction-table/transaction-table';
 
 @Component({
-  imports: [TransactionTable],
+  imports: [TransactionTable, MonthPicker],
   selector: 'app-transactions',
   templateUrl: './transactions.html',
 })
 export class Transactions {
-  private readonly store = inject(TransactionStore);
+  private readonly apiService = inject(TransactionApiService);
 
-  protected readonly transactions = computed<Transaction[]>(() => this.store.transactions.value());
+  protected readonly currentMonth = signal<Date>(new Date());
+  protected readonly transactions = rxResource({
+    params: () => this.currentMonth(),
+    stream: ({ params: month }) => this.apiService.getAll(month),
+    defaultValue: [],
+  });
 }

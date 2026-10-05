@@ -1,0 +1,36 @@
+<div class="flex gap-2">
+  <button
+    pButton
+    iconOnly
+    variant="outlined"
+    aria-label="Mes anterior"
+    size="large"
+    (click)="navigateMonth('prev')"
+    [disabled]="isPrevDisabled()"
+  >
+    <svg data-p-icon="arrow-left" color="var(--p-primary-600)"></svg>
+  </button>
+  <p-datepicker
+    view="month"
+    [ngModel]="selectedDate()"
+    (ngModelChange)="selectedDate.set($event)"
+    dateFormat="MM yy"
+    [minDate]="minDate"
+    [maxDate]="maxDate"
+    [readonlyInput]="true"
+    size="large"
+    [showIcon]="true"
+    iconDisplay="input"
+  />
+  <button
+    pButton
+    iconOnly
+    variant="outlined"
+    aria-label="Mes siguiente"
+    size="large"
+    (click)="navigateMonth('next')"
+    [disabled]="isNextDisabled()"
+  >
+    <svg data-p-icon="arrow-right" color="var(--p-primary-600)"></svg>
+  </button>
+</div>

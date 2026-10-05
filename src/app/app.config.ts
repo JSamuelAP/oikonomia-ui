@@ -3,6 +3,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import localeEsMx from '@angular/common/locales/es-MX';
 import { ApplicationConfig, LOCALE_ID, provideAppInitializer, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { es } from 'primelocale/js/es.js';
 import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 
@@ -30,6 +31,7 @@ export const appConfig: ApplicationConfig = {
           darkModeSelector: false,
         },
       },
+      translation: es,
       license: environment.primeUiLicense,
     }),
   ],

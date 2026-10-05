@@ -10,7 +10,9 @@ export class TransactionApiService {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = `${environment.apiUrl}/api/v1/transactions`;
 
-  getAll(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(`${this.baseUrl}?yearMonth=${2026}-${10}`);
+  getAll(month: Date): Observable<Transaction[]> {
+    const year = month.getFullYear();
+    const formattedMonth = (month.getMonth() + 1).toString().padStart(2, '0');
+    return this.http.get<Transaction[]>(`${this.baseUrl}?yearMonth=${year}-${formattedMonth}`);
   }
 }

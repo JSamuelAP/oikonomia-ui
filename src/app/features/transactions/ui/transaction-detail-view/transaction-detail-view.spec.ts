@@ -13,8 +13,8 @@ describe('TransactionDetailView', () => {
     amount: 100,
     notes: '',
     category: { id: '1', name: 'Comida', flowType: 'EXPENSE', deleted: false },
-    createdAt: '',
-    updatedAt: '',
+    createdAt: '2026-10-05',
+    updatedAt: '2026-10-05',
   };
 
   beforeEach(async () => {

@@ -6,14 +6,5 @@
       {{ flowTypeDisplay().label }}
     </p-tag>
   </div>
-  <div class="flex flex-col gap-0.5 text-sm">
-    <div class="text-muted-color flex items-center gap-1">
-      <svg data-p-icon="calendar"></svg>
-      <span>Fecha de creación: {{ category().createdAt | date: formatDate(category().createdAt) }}</span>
-    </div>
-    <div class="text-muted-color flex items-center gap-1">
-      <svg data-p-icon="calendar"></svg>
-      <span>Última actualización: {{ category().updatedAt | date: formatDate(category().updatedAt) }}</span>
-    </div>
-  </div>
+  <app-audit-dates [createdAt]="category().createdAt" [updatedAt]="category().updatedAt" />
 </article>

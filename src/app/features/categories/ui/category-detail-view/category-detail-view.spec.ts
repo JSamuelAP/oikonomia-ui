@@ -7,7 +7,13 @@ import { CategoryDetailView } from './category-detail-view';
 describe('CategoryDetailView', () => {
   let component: CategoryDetailView;
   let fixture: ComponentFixture<CategoryDetailView>;
-  const mockCategory: CategoryDetail = { id: '1', name: 'Comida', flowType: 'EXPENSE', createdAt: '', updatedAt: '' };
+  const mockCategory: CategoryDetail = {
+    id: '1',
+    name: 'Comida',
+    flowType: 'EXPENSE',
+    createdAt: '2026-10-05',
+    updatedAt: '2026-10-05',
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

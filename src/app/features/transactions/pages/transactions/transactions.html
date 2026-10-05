@@ -3,5 +3,23 @@
   <app-month-picker [(selectedDate)]="currentMonth" />
 </div>
 <div class="bg-surface-0 border-surface p-4">
-  <app-transaction-table [transactions]="transactions.value()" />
+  <app-transaction-table [transactions]="transactions.value()" (show)="openViewDialog($event)" />
 </div>
+
+<p-dialog
+  [visible]="viewDialogVisible()"
+  (visibleChange)="!$event && closeViewDialog()"
+  (onHide)="handleViewDialogHidden()"
+  header="Detalles de la transacción"
+  [modal]="true"
+  [draggable]="false"
+  [style]="{ width: '30rem' }"
+>
+  <ng-template #content>
+    @if (renderViewDialog()) {
+      @if (transactionDetail.value(); as transaction) {
+        <app-transaction-detail-view [transaction]="transaction" />
+      }
+    }
+  </ng-template>
+</p-dialog>

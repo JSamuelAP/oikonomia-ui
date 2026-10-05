@@ -1,25 +1,27 @@
-import { DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, computed, input, linkedSignal } from '@angular/core';
 import { Calendar } from '@primeicons/angular/calendar';
 import { PIcon } from '@primeicons/angular/p-icon';
 import { TagModule } from 'primeng/tag';
 
-import { CategoryDetail } from '@shared/category/models/category-detail';
 import { FLOW_TYPE_DISPLAY, FlowTypeDisplay } from '@shared/models/flow-type';
+import { TransactionDetail } from '@transactions/models/transaction-detail';
 
 @Component({
-  imports: [Calendar, DatePipe, PIcon, TagModule],
-  selector: 'app-category-detail-view',
-  templateUrl: './category-detail-view.html',
+  imports: [Calendar, CurrencyPipe, DatePipe, PIcon, TagModule],
+  selector: 'app-transaction-detail-view',
+  templateUrl: './transaction-detail-view.html',
 })
-export class CategoryDetailView {
-  readonly category = input.required<CategoryDetail>();
+export class TransactionDetailView {
+  readonly transaction = input.required<TransactionDetail>();
 
-  protected readonly flowTypeDisplay = linkedSignal<FlowTypeDisplay>(() => FLOW_TYPE_DISPLAY[this.category().flowType]);
+  protected readonly flowTypeDisplay = linkedSignal<FlowTypeDisplay>(
+    () => FLOW_TYPE_DISPLAY[this.transaction().category.flowType],
+  );
 
   protected readonly currentYear = computed(() => new Date().getFullYear());
 
-  protected readonly formatDate = (date: Date | string): string => {
+  protected readonly formDate = (date: Date | string): string => {
     const d = new Date(date);
     const isCurrentYear = d.getFullYear() === this.currentYear();
 

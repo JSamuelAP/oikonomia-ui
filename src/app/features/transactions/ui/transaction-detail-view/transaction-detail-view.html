@@ -1,0 +1,26 @@
+<article>
+  <div class="mb-6">
+    <span class="font-display text-primary mb-2 block text-5xl font-bold">{{
+      transaction().amount | currency: 'MXN'
+    }}</span>
+    <p-tag [severity]="flowTypeDisplay().severity">
+      <svg [pIcon]="flowTypeDisplay().icon"></svg>
+      {{ transaction().category.name }}
+    </p-tag>
+    <span class="text-accent mt-2 block">{{ transaction().date | date: "EEEE d 'de' MMMM 'de' yyyy" }}</span>
+  </div>
+  <div class="mb-8">
+    <span class="text-muted-color text-sm">Notas</span>
+    <p>{{ transaction().notes }}</p>
+  </div>
+  <div class="flex flex-col gap-0.5 text-sm">
+    <div class="text-muted-color flex items-center gap-1">
+      <svg data-p-icon="calendar"></svg>
+      <span>Fecha de creación: {{ transaction().createdAt | date: formDate(transaction().createdAt) }}</span>
+    </div>
+    <div class="text-muted-color flex items-center gap-1">
+      <svg data-p-icon="calendar"></svg>
+      <span>Última actualización: {{ transaction().updatedAt | date: formDate(transaction().createdAt) }}</span>
+    </div>
+  </div>
+</article>

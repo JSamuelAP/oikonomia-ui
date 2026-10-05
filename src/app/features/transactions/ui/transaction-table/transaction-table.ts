@@ -1,5 +1,5 @@
 import { CurrencyPipe, DatePipe, UpperCasePipe } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Eye } from '@primeicons/angular/eye';
 import { PIcon } from '@primeicons/angular/p-icon';
 import { Pencil } from '@primeicons/angular/pencil';
@@ -43,6 +43,7 @@ import { Transaction } from '@transactions/models/transaction';
 })
 export class TransactionTable {
   readonly transactions = input<Transaction[]>([]);
+  readonly show = output<Transaction>();
 
   protected flowTypeDisplay(category: CategoryReference): FlowTypeDisplay {
     return FLOW_TYPE_DISPLAY[category.flowType];
@@ -78,5 +79,9 @@ export class TransactionTable {
       return value1 - value2;
     }
     return 0;
+  }
+
+  protected handleShowClick(transaction: Transaction) {
+    this.show.emit(transaction);
   }
 }

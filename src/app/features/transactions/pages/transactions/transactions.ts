@@ -9,6 +9,7 @@ import { of } from 'rxjs';
 import { CategoryStore } from '@shared/category/category.store';
 import { MonthPicker } from '@shared/ui/month-picker/month-picker';
 import { CreateTransactionRequest } from '@transactions/data-access/models/create-transaction-request';
+import { UpdateTransactionRequest } from '@transactions/data-access/models/update-transaction-request';
 import { TransactionApiService } from '@transactions/data-access/transaction-api.service';
 import { TransactionFacade } from '@transactions/data-access/transaction.facade';
 import { Transaction } from '@transactions/models/transaction';
@@ -67,6 +68,11 @@ export class Transactions {
     this.renderedFormState.set({ mode: 'create' });
   }
 
+  protected openEditDialog(transaction: Transaction) {
+    this.formDialogState.set({ mode: 'edit', transaction });
+    this.renderedFormState.set({ mode: 'edit', transaction });
+  }
+
   protected closeFormDialog() {
     this.formDialogState.set(null);
   }
@@ -83,4 +89,13 @@ export class Transactions {
     this.transactions.reload();
     this.closeFormDialog();
   };
+
+  protected handleUpdateTransaction(id: string): (data: UpdateTransactionRequest) => Promise<ValidationError | void> {
+    return async (data: UpdateTransactionRequest): Promise<ValidationError | void> => {
+      const error = await this.transactionFacade.update(id, data);
+      if (error) return error;
+      this.transactions.reload();
+      this.closeFormDialog();
+    };
+  }
 }

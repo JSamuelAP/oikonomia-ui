@@ -1,4 +1,4 @@
-export interface CreateTransactionRequest {
+export interface UpdateTransactionRequest {
   date: string;
   amount: number;
   categoryId: string;

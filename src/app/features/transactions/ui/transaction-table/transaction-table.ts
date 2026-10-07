@@ -44,6 +44,7 @@ import { Transaction } from '@transactions/models/transaction';
 export class TransactionTable {
   readonly transactions = input<Transaction[]>([]);
   readonly show = output<Transaction>();
+  readonly edit = output<Transaction>();
 
   protected flowTypeDisplay(category: CategoryReference): FlowTypeDisplay {
     return FLOW_TYPE_DISPLAY[category.flowType];
@@ -84,4 +85,10 @@ export class TransactionTable {
   protected handleShowClick(transaction: Transaction) {
     this.show.emit(transaction);
   }
+
+  protected handleEditClick(transaction: Transaction) {
+    this.edit.emit(transaction);
+  }
+
+  // TODO: emit create
 }

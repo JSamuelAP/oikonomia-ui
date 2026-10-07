@@ -4,7 +4,11 @@
   <button pButton (click)="openCreateDialog()" size="large"><svg data-p-icon="plus"></svg> Nueva transacción</button>
 </div>
 <div class="bg-surface-0 border-surface p-4">
-  <app-transaction-table [transactions]="transactions.value()" (show)="openViewDialog($event)" />
+  <app-transaction-table
+    [transactions]="transactions.value()"
+    (show)="openViewDialog($event)"
+    (edit)="openEditDialog($event)"
+  />
 </div>
 
 <p-dialog
@@ -22,7 +26,7 @@
       <app-transaction-form
         [initialValue]="state.mode === 'edit' ? state.transaction : undefined"
         [categories]="categoryStore.categories.value()"
-        [onSubmit]="handleCreateTransaction"
+        [onSubmit]="state.mode === 'edit' ? handleUpdateTransaction(state.transaction.id) : handleCreateTransaction"
         (canceled)="closeFormDialog()"
       />
     }

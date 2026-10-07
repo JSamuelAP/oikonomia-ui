@@ -15,7 +15,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { Category } from '@shared/category/models/category';
 import { FLOW_TYPE_DISPLAY, FlowType } from '@shared/models/flow-type';
 import { FieldErrors } from '@shared/ui/field-errors/field-errors';
-import { startOfDay } from '@shared/util/date';
+import { formatDateOnly, parseDateOnly, startOfDay } from '@shared/util/date';
 import { CreateTransactionRequest } from '@transactions/data-access/models/create-transaction-request';
 import { Transaction } from '@transactions/models/transaction';
 import { TransactionFormValue } from '@transactions/ui/transaction-form/transaction-form-value';
@@ -81,7 +81,8 @@ export class TransactionForm {
     {
       submission: {
         action: async (field) => {
-          const error = await this.onSubmit()(field().value());
+          const data = { ...field().value(), date: formatDateOnly(field().value().date) };
+          const error = await this.onSubmit()(data);
           if (error) return error;
           field().reset(this.emptyFormValue());
           return undefined;
@@ -93,7 +94,7 @@ export class TransactionForm {
   private toFormValue(transaction: Transaction): TransactionFormValue {
     const { date, amount, notes, category } = transaction;
     return {
-      date: new Date(date),
+      date: parseDateOnly(date),
       amount,
       categoryId: category.id,
       notes,

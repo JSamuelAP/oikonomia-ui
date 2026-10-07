@@ -1,10 +1,33 @@
-<div class="flex flex-col justify-between md:flex-row md:items-center">
-  <h1 class="text-primary mt-4 mb-5 text-4xl font-bold">Transacciones</h1>
+<div class="flex flex-col justify-between gap-6 md:flex-row md:items-center">
+  <h1 class="text-primary mt-4 text-4xl font-bold md:mb-5">Transacciones</h1>
   <app-month-picker [(selectedDate)]="currentMonth" />
+  <button pButton (click)="openCreateDialog()" size="large"><svg data-p-icon="plus"></svg> Nueva transacción</button>
 </div>
 <div class="bg-surface-0 border-surface p-4">
   <app-transaction-table [transactions]="transactions.value()" (show)="openViewDialog($event)" />
 </div>
+
+<p-dialog
+  [visible]="formDialogState() !== null"
+  (visibleChange)="!$event && closeFormDialog()"
+  [focusOnShow]="false"
+  (onHide)="handleFormDialogHidden()"
+  [header]="formDialogState()?.mode === 'edit' ? 'Editar transacción' : 'Nueva transacción'"
+  [modal]="true"
+  [draggable]="false"
+  [style]="{ width: '24rem' }"
+>
+  <ng-template #content>
+    @if (renderedFormState(); as state) {
+      <app-transaction-form
+        [initialValue]="state.mode === 'edit' ? state.transaction : undefined"
+        [categories]="categoryStore.categories.value()"
+        [onSubmit]="handleCreateTransaction"
+        (canceled)="closeFormDialog()"
+      />
+    }
+  </ng-template>
+</p-dialog>
 
 <p-dialog
   [visible]="viewDialogVisible()"

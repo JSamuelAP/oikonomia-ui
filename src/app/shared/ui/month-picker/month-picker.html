@@ -10,18 +10,21 @@
   >
     <svg data-p-icon="arrow-left" color="var(--p-primary-600)"></svg>
   </button>
-  <p-datepicker
-    view="month"
-    [ngModel]="selectedDate()"
-    (ngModelChange)="selectedDate.set($event)"
-    dateFormat="MM yy"
-    [minDate]="minDate"
-    [maxDate]="maxDate"
-    [readonlyInput]="true"
-    size="large"
-    [showIcon]="true"
-    iconDisplay="input"
-  />
+  <div class="flex-1 md:w-48 md:flex-initial">
+    <p-datepicker
+      view="month"
+      [ngModel]="selectedDate()"
+      (ngModelChange)="selectedDate.set($event)"
+      dateFormat="MM yy"
+      [minDate]="minDate"
+      [maxDate]="maxDate"
+      [readonlyInput]="true"
+      size="large"
+      [showIcon]="true"
+      iconDisplay="input"
+      fluid
+    />
+  </div>
   <button
     pButton
     iconOnly

@@ -6,6 +6,8 @@ import { environment } from '@environments/environment';
 import { Transaction } from '@transactions/models/transaction';
 import { TransactionDetail } from '@transactions/models/transaction-detail';
 
+import { CreateTransactionRequest } from './models/create-transaction-request';
+
 @Service()
 export class TransactionApiService {
   private readonly http = inject(HttpClient);
@@ -19,5 +21,9 @@ export class TransactionApiService {
 
   getById(id: string): Observable<TransactionDetail> {
     return this.http.get<TransactionDetail>(`${this.baseUrl}/${id}`);
+  }
+
+  create(request: CreateTransactionRequest): Observable<void> {
+    return this.http.post<void>(this.baseUrl, request);
   }
 }

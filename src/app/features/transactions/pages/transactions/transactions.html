@@ -8,6 +8,7 @@
     [transactions]="transactions.value()"
     (show)="openViewDialog($event)"
     (edit)="openEditDialog($event)"
+    (delete)="openDeleteDialog($event)"
   />
 </div>
 
@@ -50,3 +51,5 @@
     }
   </ng-template>
 </p-dialog>
+
+<p-confirmdialog />

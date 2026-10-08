@@ -45,6 +45,7 @@ export class TransactionTable {
   readonly transactions = input<Transaction[]>([]);
   readonly show = output<Transaction>();
   readonly edit = output<Transaction>();
+  readonly delete = output<Transaction>();
 
   protected flowTypeDisplay(category: CategoryReference): FlowTypeDisplay {
     return FLOW_TYPE_DISPLAY[category.flowType];
@@ -88,6 +89,10 @@ export class TransactionTable {
 
   protected handleEditClick(transaction: Transaction) {
     this.edit.emit(transaction);
+  }
+
+  protected handleDeleteClick(transaction: Transaction) {
+    this.delete.emit(transaction);
   }
 
   // TODO: emit create

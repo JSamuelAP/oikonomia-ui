@@ -36,4 +36,14 @@ export class TransactionFacade {
       return { kind: 'unknown', message };
     }
   }
+
+  async delete(id: string): Promise<boolean> {
+    try {
+      await firstValueFrom(this.transactionApi.delete(id));
+      return true;
+    } catch (error) {
+      console.error('Delete transaction failed:', error);
+      return false;
+    }
+  }
 }

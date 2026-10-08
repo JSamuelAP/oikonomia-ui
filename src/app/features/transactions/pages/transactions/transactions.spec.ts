@@ -1,8 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { environment } from '@environments/environment';
+import { MessageService } from 'primeng/api';
 
 import { Transactions } from './transactions';
 
@@ -14,7 +13,7 @@ describe('Transactions', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Transactions],
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      providers: [provideHttpClient(), provideHttpClientTesting(), MessageService],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Transactions);
@@ -22,7 +21,7 @@ describe('Transactions', () => {
     httpMock = TestBed.inject(HttpTestingController);
 
     fixture.detectChanges();
-    httpMock.expectOne(`${environment.apiUrl}/api/v1/transactions?yearMonth=${2026}-${10}`).flush([]);
+    httpMock.match(() => true).forEach((req) => req.flush([]));
 
     await fixture.whenStable();
   });

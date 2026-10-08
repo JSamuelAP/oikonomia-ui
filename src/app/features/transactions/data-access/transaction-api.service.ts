@@ -16,7 +16,7 @@ export class TransactionApiService {
   private readonly baseUrl = `${environment.apiUrl}/api/v1/transactions`;
 
   getAll(date: Date): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(`${this.baseUrl}?yearMonth=${formatYearMonth(date)}`);
+    return this.http.get<Transaction[]>(this.baseUrl, { params: { yearMonth: formatYearMonth(date) } });
   }
 
   getById(id: string): Observable<TransactionDetail> {
@@ -29,5 +29,9 @@ export class TransactionApiService {
 
   update(id: string, request: UpdateTransactionRequest): Observable<void> {
     return this.http.put<void>(`${this.baseUrl}/${id}`, request);
+  }
+
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }

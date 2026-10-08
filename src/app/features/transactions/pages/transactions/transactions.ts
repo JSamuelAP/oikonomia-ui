@@ -2,7 +2,9 @@ import { Component, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ValidationError } from '@angular/forms/signals';
 import { Plus } from '@primeicons/angular/plus';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { of } from 'rxjs';
 
@@ -20,14 +22,26 @@ import { TransactionTable } from '@transactions/ui/transaction-table/transaction
 type TransactionFormDialogState = { mode: 'create' } | { mode: 'edit'; transaction: Transaction };
 
 @Component({
-  imports: [ButtonModule, DialogModule, MonthPicker, TransactionTable, TransactionDetailView, Plus, TransactionForm],
+  imports: [
+    ButtonModule,
+    DialogModule,
+    ConfirmDialogModule,
+    MonthPicker,
+    TransactionTable,
+    TransactionDetailView,
+    Plus,
+    TransactionForm,
+  ],
   selector: 'app-transactions',
   templateUrl: './transactions.html',
+  providers: [ConfirmationService],
 })
 export class Transactions {
   private readonly transactionApi = inject(TransactionApiService);
   protected readonly transactionFacade = inject(TransactionFacade);
   protected readonly categoryStore = inject(CategoryStore);
+  private readonly confirmationService = inject(ConfirmationService);
+  private readonly messageService = inject(MessageService);
 
   protected readonly currentMonth = signal<Date>(new Date());
   protected readonly transactions = rxResource({
@@ -81,6 +95,27 @@ export class Transactions {
     this.renderedFormState.set(null);
   }
 
+  protected openDeleteDialog(transaction: Transaction): void {
+    this.confirmationService.confirm({
+      message: `¿Eliminar la transacción del <strong>${transaction.date}</strong>?<br/>Esta acción no se podrá deshacer.`,
+      header: 'Eliminar transacción',
+      closable: true,
+      closeOnEscape: true,
+      icon: 'pi pi-exclamation-triangle',
+      rejectButtonProps: {
+        label: 'Cancelar',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Eliminar',
+      },
+      accept: () => {
+        this.deleteTransaction(transaction);
+      },
+    });
+  }
+
   protected readonly handleCreateTransaction = async (
     data: CreateTransactionRequest,
   ): Promise<ValidationError | void> => {
@@ -97,5 +132,21 @@ export class Transactions {
       this.transactions.reload();
       this.closeFormDialog();
     };
+  }
+
+  private async deleteTransaction(transaction: Transaction): Promise<void> {
+    const success = await this.transactionFacade.delete(transaction.id);
+
+    if (success) this.transactions.reload();
+
+    this.messageService.add(
+      success
+        ? {
+            severity: 'success',
+            summary: 'Transacción eliminada',
+            detail: 'La transacción se eliminó correctamente.',
+          }
+        : { severity: 'error', summary: 'Error', detail: 'No se pudo eliminar la transacción. Intenta de nuevo.' },
+    );
   }
 }

@@ -96,7 +96,7 @@
             <p class="m-0 text-lg font-semibold">Aún no hay transacciones</p>
             <p class="text-muted-color mt-1">Registra tu primera transacción del mes para verla aquí.</p>
           </div>
-          <button type="button" pButton size="large">
+          <button (click)="handleCreateClick()" type="button" pButton size="large">
             <svg data-p-icon="plus" />
             Nueva transacción
           </button>

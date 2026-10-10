@@ -1,11 +1,16 @@
 <div class="flex min-h-screen">
   <app-sidebar [open]="sidebarOpen()" (closed)="closeSidebar()" />
-  <div class="flex min-w-0 flex-1 flex-col gap-4 p-4 sm:p-6">
-    <app-header (menuToggle)="toggleSidebar()">
-      <app-user-menu />
-    </app-header>
-    <main class="flex-1 overflow-y-auto">
-      <router-outlet />
-    </main>
+  <div class="relative flex min-w-0 flex-1 flex-col gap-4">
+    <div class="p-4 sm:p-6">
+      <app-header (menuToggle)="toggleSidebar()">
+        <app-user-menu />
+      </app-header>
+      <main class="flex-1 overflow-y-auto">
+        <router-outlet />
+      </main>
+    </div>
+    <div class="bg-surface-0 border-surface absolute bottom-0 w-full border-t p-4 sm:px-6">
+      <app-footer />
+    </div>
   </div>
 </div>

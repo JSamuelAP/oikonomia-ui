@@ -1,12 +1,13 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
+import { Footer } from './ui/footer/footer';
 import { Header } from './ui/header/header';
 import { Sidebar } from './ui/sidebar/sidebar';
 import { UserMenu } from './ui/user-menu/user-menu';
 
 @Component({
-  imports: [Header, RouterOutlet, Sidebar, UserMenu],
+  imports: [Footer, Header, RouterOutlet, Sidebar, UserMenu],
   selector: 'app-main-layout',
   templateUrl: './main-layout.html',
 })

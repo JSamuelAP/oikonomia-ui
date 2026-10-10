@@ -5,7 +5,7 @@
   class="bg-primary-100! cursor-pointer select-none"
   [pt]="{ label: { class: 'text-primary' } }"
 />
-<p-menu #menu [model]="items" [popup]="true">
+<p-menu #menu [model]="items" [popup]="true" appendTo="body">
   <ng-template #start>
     <div class="p-4 pb-2 text-sm">
       @let u = user();

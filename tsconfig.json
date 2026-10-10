@@ -19,8 +19,10 @@
       "@categories/*": ["./src/app/features/categories/*"],
       "@transactions/*": ["./src/app/features/transactions/*"],
       "@shared/*": ["./src/app/shared/*"],
-      "@environments/*": ["./src/environments/*"]
-    }
+      "@environments/*": ["./src/environments/*"],
+      "packageJson": ["./package.json"]
+    },
+    "resolveJsonModule": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

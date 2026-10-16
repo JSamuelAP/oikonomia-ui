@@ -23,6 +23,7 @@ import { PopoverModule } from 'primeng/popover';
 
 import { SignupRequest } from '@core/auth/models/signup-request';
 import { FieldErrors } from '@shared/ui/field-errors/field-errors';
+import { notBlank } from '@shared/util/validators';
 import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_PATTERN } from '@auth/utils/password-policy';
 
 import { PasswordRequirements } from '../password-requirements/password-requirements';
@@ -64,10 +65,12 @@ export class SignupForm {
     this.signupModel,
     (path) => {
       required(path.firstName, { when: ({ state }) => state.touched(), message: 'Nombre requerido.' });
+      notBlank(path.firstName);
       minLength(path.firstName, 2, { message: 'Mínimo 2 caracteres.' });
       maxLength(path.firstName, 100);
 
       required(path.lastName, { when: ({ state }) => state.touched(), message: 'Apellidos requeridos.' });
+      notBlank(path.lastName);
       minLength(path.lastName, 2, { message: 'Mínimo 2 caracteres.' });
       maxLength(path.lastName, 150);
 

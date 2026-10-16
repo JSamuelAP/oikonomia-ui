@@ -13,7 +13,7 @@ export class Sidebar {
 
   protected readonly items = [
     { icon: 'receipt', label: 'Transacciones', path: 'transactions' },
-    { icon: 'wallet', label: 'Presupuestos', path: 'budgets' },
+    // { icon: 'wallet', label: 'Presupuestos', path: 'budgets' },
     { icon: 'tags', label: 'Categorías', path: 'categories' },
   ];
 }

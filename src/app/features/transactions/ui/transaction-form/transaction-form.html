@@ -72,6 +72,7 @@
     </p-floatlabel>
     <app-field-errors [field]="transactionForm.notes" />
   </div>
+  <app-field-errors [field]="transactionForm" />
   <div class="mt-6 flex justify-end gap-2">
     <button pButton type="button" (click)="canceled.emit()" severity="secondary" variant="outlined" size="large">
       Cancelar

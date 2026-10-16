@@ -1,5 +1,15 @@
 import { Component, input, linkedSignal, output } from '@angular/core';
-import { form, FormField, FormRoot, maxDate, maxLength, min, required, ValidationError } from '@angular/forms/signals';
+import {
+  form,
+  FormField,
+  FormRoot,
+  max,
+  maxDate,
+  maxLength,
+  min,
+  required,
+  ValidationError,
+} from '@angular/forms/signals';
 import { PIcon } from '@primeicons/angular/p-icon';
 import { Spinner } from '@primeicons/angular/spinner';
 import { Tags } from '@primeicons/angular/tags';
@@ -62,6 +72,7 @@ export class TransactionForm {
   ]);
 
   private readonly AMOUNT_MIN = 0.01;
+  private readonly AMOUNT_MAX = 9_999_999_999.99;
   private readonly NOTES_MAX_LENGTH = 255;
   protected readonly DATE_MAX = startOfDay();
 
@@ -73,6 +84,7 @@ export class TransactionForm {
 
       required(path.amount, { when: ({ state }) => state.touched(), message: 'Cantidad requerida.' });
       min(path.amount, this.AMOUNT_MIN);
+      max(path.amount, this.AMOUNT_MAX);
 
       required(path.categoryId, { when: ({ state }) => state.touched(), message: 'Categoría requerida.' });
 

@@ -8,6 +8,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 
 import { FLOW_TYPE_DISPLAY, FlowType } from '@shared/models/flow-type';
 import { FieldErrors } from '@shared/ui/field-errors/field-errors';
+import { notBlank } from '@shared/util/validators';
 import { CreateCategoryRequest } from '@categories/data-access/models/create-category-request';
 import { CategoryFormValue } from '@categories/models/category-form-value';
 
@@ -55,6 +56,7 @@ export class CategoryForm {
     this.categoryModel,
     (path) => {
       required(path.name, { when: ({ state }) => state.touched(), message: 'Nombre requerido.' });
+      notBlank(path.name);
       minLength(path.name, this.NAME_MIN_LENGTH, { message: `Mínimo ${this.NAME_MIN_LENGTH} caracteres.` });
       maxLength(path.name, this.NAME_MAX_LENGTH);
 

@@ -1,0 +1,27 @@
+name: Configure environment
+description: Validate PrimeUI license and generate src/environments/environment.ts
+
+inputs:
+  prime-ui-license:
+    description: PrimeUI license key
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Generate environment.ts
+      shell: bash
+      env:
+        PRIME_UI_LICENSE: ${{ inputs.prime-ui-license }}
+      run: |
+        if [ -z "$PRIME_UI_LICENSE" ]; then
+          echo "::error::PRIME_UI_LICENSE is not configured."
+          exit 1
+        fi
+        cat > src/environments/environment.ts <<EOF
+        export const environment = {
+          production: true,
+          apiUrl: '',
+          primeUiLicense: '${PRIME_UI_LICENSE}'
+        };
+        EOF

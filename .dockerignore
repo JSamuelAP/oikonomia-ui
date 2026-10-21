@@ -1,0 +1,43 @@
+# Node and build output
+**/node_modules
+dist
+out-tsc
+.angular
+.cache
+.tmp
+
+# Testing
+coverage
+reports
+playwright-report
+cypress/screenshots
+cypress/videos
+
+# Environtment & log files
+**/.env*
+**/*.log
+**/*.tsbuildinfo
+
+# IDE & OS
+.vscode
+.idea
+**/.DS_Store
+**/Thumbs.db
+**/*.swp
+
+# Version control & CI files
+.git
+.gitignore
+.gitattributes
+.github
+
+# Docker & documentation
+Dockerfile*
+.dockerignore
+docker-compose*.yml
+**/*.md
+
+# Miscellaneous
+*.back
+*.old
+*.tmp

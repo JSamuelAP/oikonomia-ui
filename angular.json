@@ -81,7 +81,10 @@
               "buildTarget": "oikonomia-ui:build:local"
             }
           },
-          "defaultConfiguration": "local"
+          "defaultConfiguration": "local",
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          }
         },
         "test": {
           "builder": "@angular/build:unit-test"

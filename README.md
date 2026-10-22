@@ -6,6 +6,21 @@ Aplicación web para llevar el seguimiento de gastos personales. SPA Construida 
 
 ## Contenido
 
+- [Sobre el proyecto](#sobre-el-proyecto)
+- [Funcionalidades](#funcionalidades)
+- [Stack](#stack)
+- [Arquitectura](#arquitectura)
+- [Estructura del código](#estructura-del-código)
+- [Seguridad](#seguridad)
+- [Pruebas](#pruebas)
+- [Calidad y CI/CD](#calidad-y-cicd)
+- [Primeros pasos](#primeros-pasos)
+- [Comandos](#comandos)
+- [API](#api)
+- [Retos técnicos y lecciones aprendidas](#retos-técnicos-y-lecciones-aprendidas)
+- [Contacto](#contacto)
+- [Licencia](#licencia)
+
 ## Sobre el proyecto
 
 Saber cuánto ganas y cuánto gastas es importante. Mi forma de llevar el seguimiento de mis gastos e ingresos consistía

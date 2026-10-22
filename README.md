@@ -163,8 +163,8 @@ las pruebas.
 El hook `pre-commit` aplica formato con Prettier y ajustes con ESLint. `commit-msg` asegura que el mensaje del commit
 siga conventional commits.
 
-Uso un workflow de GitHub Actions en push y pull request a la rama `main` y `develop`. Un push nuevo cancela la
-ejecución en curso de un PR.
+Uso un workflow de GitHub Actions en push y pull request a la rama `main`. Un push nuevo cancela la ejecución en curso
+de un PR.
 
 - `quality`: valida formato, lint y pruebas.
 - `build`: compila en producción. Genera `environment.ts` con la licencia de PrimeUI.

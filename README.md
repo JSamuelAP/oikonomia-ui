@@ -170,6 +170,9 @@ de un PR.
 - `build`: compila en producción. Genera `environment.ts` con la licencia de PrimeUI.
 - `docker`: construye la imagen sin publicarla. Comprueba que NGINX inicie correctamente.
 
+La rama `main` no puede recibir commits directamente; deben integrarse mediante pull requests. Incluyo plantillas para
+abrir issues y pull requests.
+
 ## Primeros pasos
 
 ### Requisitos

@@ -47,6 +47,8 @@ export class Transactions {
   private readonly confirmationService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
 
+  protected readonly today = new Date();
+
   protected readonly currentMonth = signal<Date>(new Date());
   protected readonly transactions = rxResource({
     params: () => this.currentMonth(),

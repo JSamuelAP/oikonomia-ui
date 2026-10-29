@@ -17,7 +17,7 @@
       (ngModelChange)="selectedDate.set($event)"
       dateFormat="MM yy"
       [minDate]="minDate"
-      [maxDate]="maxDate"
+      [maxDate]="maxDate()"
       [readonlyInput]="true"
       size="large"
       [showIcon]="true"

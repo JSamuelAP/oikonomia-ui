@@ -1,4 +1,4 @@
-import { Component, model } from '@angular/core';
+import { Component, input, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ArrowLeft } from '@primeicons/angular/arrow-left';
 import { ArrowRight } from '@primeicons/angular/arrow-right';
@@ -17,9 +17,9 @@ function startOfCurrentMonth(): Date {
 })
 export class MonthPicker {
   readonly selectedDate = model<Date>(startOfCurrentMonth());
+  readonly maxDate = input(new Date(2100, 11, 31));
 
   protected readonly minDate = new Date(2025, 0, 1);
-  protected readonly maxDate = new Date(2100, 11, 31);
 
   protected navigateMonth(direction: 'prev' | 'next'): void {
     const current = this.selectedDate();
@@ -32,7 +32,7 @@ export class MonthPicker {
   }
 
   protected isNextDisabled(): boolean {
-    return this.toMonthIndex(this.selectedDate()) >= this.toMonthIndex(this.maxDate);
+    return this.toMonthIndex(this.selectedDate()) >= this.toMonthIndex(this.maxDate());
   }
 
   private toMonthIndex(date: Date): number {

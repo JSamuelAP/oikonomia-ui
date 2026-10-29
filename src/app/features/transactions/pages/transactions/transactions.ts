@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ValidationError } from '@angular/forms/signals';
 import { Plus } from '@primeicons/angular/plus';
@@ -8,8 +8,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { of } from 'rxjs';
 
+import { injectMonthlyBalance } from '@shared/balance/inject-monthly-balance';
+import { BalanceSummary } from '@shared/balance/ui/balance-summary/balance-summary';
 import { CategoryStore } from '@shared/category/category.store';
 import { MonthPicker } from '@shared/ui/month-picker/month-picker';
+import { addMonths } from '@shared/util/date';
 import { CreateTransactionRequest } from '@transactions/data-access/models/create-transaction-request';
 import { UpdateTransactionRequest } from '@transactions/data-access/models/update-transaction-request';
 import { TransactionApiService } from '@transactions/data-access/transaction-api.service';
@@ -31,6 +34,7 @@ type TransactionFormDialogState = { mode: 'create' } | { mode: 'edit'; transacti
     TransactionDetailView,
     Plus,
     TransactionForm,
+    BalanceSummary,
   ],
   selector: 'app-transactions',
   templateUrl: './transactions.html',
@@ -43,12 +47,22 @@ export class Transactions {
   private readonly confirmationService = inject(ConfirmationService);
   private readonly messageService = inject(MessageService);
 
+  protected readonly today = new Date();
+
   protected readonly currentMonth = signal<Date>(new Date());
   protected readonly transactions = rxResource({
     params: () => this.currentMonth(),
     stream: ({ params: month }) => this.transactionApi.getAll(month),
     defaultValue: [],
   });
+  protected readonly balance = injectMonthlyBalance(this.currentMonth, (month) =>
+    this.transactionApi.getBalance(month),
+  );
+
+  protected readonly previousMonth = computed(() => addMonths(this.currentMonth(), -1));
+  protected readonly previousBalance = injectMonthlyBalance(this.previousMonth, (month) =>
+    this.transactionApi.getBalance(month),
+  );
 
   protected readonly viewTransactionId = signal<string | null>(null);
   protected readonly renderViewDialog = signal(false);
@@ -122,6 +136,7 @@ export class Transactions {
     const error = await this.transactionFacade.create(data);
     if (error) return error;
     this.transactions.reload();
+    this.balance.reload();
     this.closeFormDialog();
   };
 
@@ -130,6 +145,7 @@ export class Transactions {
       const error = await this.transactionFacade.update(id, data);
       if (error) return error;
       this.transactions.reload();
+      this.balance.reload();
       this.closeFormDialog();
     };
   }
@@ -137,7 +153,10 @@ export class Transactions {
   private async deleteTransaction(transaction: Transaction): Promise<void> {
     const success = await this.transactionFacade.delete(transaction.id);
 
-    if (success) this.transactions.reload();
+    if (success) {
+      this.transactions.reload();
+      this.balance.reload();
+    }
 
     this.messageService.add(
       success

@@ -3,6 +3,7 @@ import { inject, Service } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '@environments/environment';
+import { MonthlyBalance } from '@shared/balance/models/monthly-balance';
 import { formatYearMonth } from '@shared/util/date';
 import { Transaction } from '@transactions/models/transaction';
 import { TransactionDetail } from '@transactions/models/transaction-detail';
@@ -33,5 +34,9 @@ export class TransactionApiService {
 
   delete(id: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  getBalance(date: Date): Observable<MonthlyBalance> {
+    return this.http.get<MonthlyBalance>(`${this.baseUrl}/balance`, { params: { month: formatYearMonth(date) } });
   }
 }

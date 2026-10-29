@@ -42,7 +42,7 @@ Actualmente, me estoy concentrando en tener listo un MVP en lugar de tratar de t
 usar sus funcionalidades básicas, darme cuenta de que le falta, qué sería útil y proponer cambios absurdos (ventajas de
 ser mi propio usuario).
 
-También pienso agregar mejoras a la aplicación, como testing, gráficas y optimizaciones y mejoras UX. Así que el
+También pienso agregar mejoras a la aplicación, como testing, gráficas, optimizaciones y mejoras UX. Así que el
 proyecto seguirá recibiendo actualizaciones de todo tipo.
 
 ## Funcionalidades
@@ -116,7 +116,9 @@ Aquí no quise complicármela con arquitectura hexagonal. Dudo mucho que llegue 
 │   │   │   ├── user/                    # Perfil del usuario actual
 │   │   │   └── theme/                   # Preset de PrimeNG
 │   │   ├── shared/
+│   │   │   ├── balance/                 # Modelos y componentes de balance mensual
 │   │   │   ├── category/                # Modelos, API y CategoryStore (lectura)
+│   │   │   ├── directives/
 │   │   │   ├── models/                  # FlowType y su presentación
 │   │   │   ├── pipes/
 │   │   │   ├── ui/
@@ -193,7 +195,7 @@ abrir issues y pull requests.
 ### Requisitos
 
 - Node.js 26 y npm
-- API de Oikonomia en ejecución (versión [0.1.0](https://github.com/JSamuelAP/oikonomia-api/releases/tag/v0.1.0))
+- API de Oikonomia en ejecución (versión [0.2.0](https://github.com/JSamuelAP/oikonomia-api/releases/tag/v0.2.0))
 - Docker (opcional)
 - Licencia de PrimeUI (para que no muestre un mensaje de error en la interfaz). Se puede conseguir gratis en
   [primestore](https://primeui.store/primeui)

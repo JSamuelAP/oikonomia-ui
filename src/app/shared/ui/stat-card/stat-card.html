@@ -1,0 +1,18 @@
+<div class="bg-surface-0 border-surface p-4 shadow-xs">
+  <div class="flex items-center justify-between">
+    <span class="text-accent text-xs uppercase xl:text-sm">{{ label() }}</span>
+    <span [class]="textClass()">
+      <ng-content select="[icon]"></ng-content>
+    </span>
+  </div>
+  <div class="mb-4">
+    @if (loading()) {
+      <p-skeleton width="60%" height="3.75rem" />
+    } @else {
+      <span class="font-display text-5xl font-bold text-nowrap md:text-4xl xl:text-6xl" [class]="textClass()">{{
+        value()
+      }}</span>
+    }
+  </div>
+  <ng-content select="[hint]"></ng-content>
+</div>

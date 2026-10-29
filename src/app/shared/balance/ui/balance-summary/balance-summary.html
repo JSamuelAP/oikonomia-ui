@@ -1,0 +1,74 @@
+@if (error()) {
+  <p-message severity="error" variant="outlined">
+    <div class="flex-items-center flex gap-2">
+      <span>No se pudo cargar el balance del mes.</span>
+      <button pButton size="small" [text]="true" (onClick)="retry.emit()">Reintentar</button>
+    </div>
+  </p-message>
+} @else {
+  <section
+    class="grid grid-cols-1 gap-4 md:grid-cols-3"
+    role="group"
+    aria-label="Resumen del mes"
+    [attr.aria-busy]="loading()"
+  >
+    <app-stat-card
+      label="Ingresos del mes"
+      severity="success"
+      [value]="totals().income | signedCurrency"
+      [loading]="loading()"
+    >
+      <svg icon [pIcon]="income.icon" [size]="18" aria-hidden="true"></svg>
+      <div hint class="min-h-6">
+        @let incomeVsPrevious = incomeChange();
+        @if (!loading() && incomeVsPrevious) {
+          <p-tag
+            [severity]="incomeVsPrevious.good ? 'success' : 'danger'"
+            [icon]="incomeVsPrevious.up ? 'pi pi-arrow-up' : 'pi pi-arrow-down'"
+            [value]="(incomeVsPrevious.magnitude | percent: '1.0-0') + ' vs mes anterior'"
+          />
+        }
+      </div>
+    </app-stat-card>
+
+    <app-stat-card
+      label="Gastos del mes"
+      severity="danger"
+      [value]="totals().expense | signedCurrency"
+      [loading]="loading()"
+    >
+      <svg icon [pIcon]="expense.icon" [size]="18" aria-hidden="true"></svg>
+      <div hint class="min-h-6">
+        @let expenseVsPrevious = expenseChange();
+        @if (!loading() && expenseVsPrevious) {
+          <p-tag
+            [severity]="expenseVsPrevious.good ? 'success' : 'danger'"
+            [icon]="expenseVsPrevious.up ? 'pi pi-arrow-up' : 'pi pi-arrow-down'"
+            [value]="(expenseVsPrevious.magnitude | percent: '1.0-0') + ' vs mes anterior'"
+          />
+        }
+      </div>
+    </app-stat-card>
+
+    <app-stat-card
+      label="Balance mensual"
+      [severity]="balanceSeverity()"
+      [value]="totals().net | signedCurrency"
+      [loading]="loading()"
+    >
+      <svg icon data-p-icon="wallet" [size]="18" aria-hidden="true"></svg>
+      <div hint class="min-h-6">
+        @let rate = savingsRate();
+        @if (!loading() && rate !== null) {
+          <span class="text-muted-color text-xs xl:text-sm">
+            @if (rate >= 0) {
+              Ahorraste el {{ rate | percent: '1.0-2' }} de tus ingresos
+            } @else {
+              Gastaste más de lo que ingresaste
+            }
+          </span>
+        }
+      </div>
+    </app-stat-card>
+  </section>
+}

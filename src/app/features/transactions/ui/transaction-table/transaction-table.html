@@ -67,7 +67,7 @@
       </td>
       <td>{{ transaction.notes }}</td>
       <td>
-        <span class="font-semibold" [class]="flowTypeDisplay[flow].amountClass">
+        <span class="font-semibold text-nowrap" [class]="flowTypeDisplay[flow].amountClass">
           {{ transaction.amount | signedCurrency: flow }}
         </span>
       </td>
@@ -86,7 +86,19 @@
       </td>
     </tr>
   </ng-template>
-  <!-- TODO: Mostrar cuántas transacciones hay por tipo de flujo -->
+  @if (transactions().length > 0) {
+    <ng-template #footer>
+      <tr>
+        <td colspan="5">
+          <div class="text-muted-color py-1 text-sm">
+            Total: <span class="font-semibold">{{ transactions().length }}</span> - Ingresos:
+            <span class="font-semibold">{{ incomeLength() }}</span> - Gastos:
+            <span class="font-semibold">{{ expenseLength() }}</span>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  }
   <ng-template #emptymessage>
     <tr>
       <td colspan="5">

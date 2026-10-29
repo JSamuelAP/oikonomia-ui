@@ -1,5 +1,5 @@
 import { DatePipe, UpperCasePipe } from '@angular/common';
-import { Component, input, output } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { Eye } from '@primeicons/angular/eye';
 import { PIcon } from '@primeicons/angular/p-icon';
 import { Pencil } from '@primeicons/angular/pencil';
@@ -51,6 +51,13 @@ export class TransactionTable {
   readonly create = output<void>();
 
   protected readonly flowTypeDisplay = FLOW_TYPE_DISPLAY;
+
+  protected readonly incomeLength = computed(
+    () => this.transactions().filter((t) => t.category.flowType === 'INCOME').length,
+  );
+  protected readonly expenseLength = computed(
+    () => this.transactions().filter((t) => t.category.flowType === 'EXPENSE').length,
+  );
 
   protected customSort(event: SortEvent): void {
     const field = event.field ?? '';

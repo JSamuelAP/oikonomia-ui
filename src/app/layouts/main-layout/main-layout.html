@@ -1,7 +1,7 @@
 <div class="flex min-h-screen">
   <app-sidebar [open]="sidebarOpen()" (closed)="closeSidebar()" />
   <div class="relative flex min-w-0 flex-1 flex-col gap-4">
-    <div class="p-4 sm:p-6">
+    <div class="p-4 pb-16 sm:p-6">
       <app-header (menuToggle)="toggleSidebar()">
         <app-user-menu />
       </app-header>

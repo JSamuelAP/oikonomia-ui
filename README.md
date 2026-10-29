@@ -42,7 +42,7 @@ Actualmente, me estoy concentrando en tener listo un MVP en lugar de tratar de t
 usar sus funcionalidades básicas, darme cuenta de que le falta, qué sería útil y proponer cambios absurdos (ventajas de
 ser mi propio usuario).
 
-También pienso agregar mejoras a la aplicación, como testing, gráficas y optimizaciones y mejoras UX. Así que el
+También pienso agregar mejoras a la aplicación, como testing, gráficas, optimizaciones y mejoras UX. Así que el
 proyecto seguirá recibiendo actualizaciones de todo tipo.
 
 ## Funcionalidades
@@ -116,7 +116,9 @@ Aquí no quise complicármela con arquitectura hexagonal. Dudo mucho que llegue 
 │   │   │   ├── user/                    # Perfil del usuario actual
 │   │   │   └── theme/                   # Preset de PrimeNG
 │   │   ├── shared/
+│   │   │   ├── balance/                 # Modelos y componentes de balance mensual
 │   │   │   ├── category/                # Modelos, API y CategoryStore (lectura)
+│   │   │   ├── directives/
 │   │   │   ├── models/                  # FlowType y su presentación
 │   │   │   ├── pipes/
 │   │   │   ├── ui/

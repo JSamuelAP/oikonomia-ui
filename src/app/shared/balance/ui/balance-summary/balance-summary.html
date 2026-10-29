@@ -18,7 +18,7 @@
       [value]="totals().income | signedCurrency"
       [loading]="loading()"
     >
-      <svg icon [pIcon]="income.icon" [size]="20" aria-hidden="true"></svg>
+      <svg icon [pIcon]="income.icon" [size]="18" aria-hidden="true"></svg>
       <div hint class="min-h-6">
         @let incomeVsPrevious = incomeChange();
         @if (!loading() && incomeVsPrevious) {
@@ -37,7 +37,7 @@
       [value]="totals().expense | signedCurrency"
       [loading]="loading()"
     >
-      <svg icon [pIcon]="expense.icon" [size]="20" aria-hidden="true"></svg>
+      <svg icon [pIcon]="expense.icon" [size]="18" aria-hidden="true"></svg>
       <div hint class="min-h-6">
         @let expenseVsPrevious = expenseChange();
         @if (!loading() && expenseVsPrevious) {
@@ -56,11 +56,11 @@
       [value]="totals().net | signedCurrency"
       [loading]="loading()"
     >
-      <svg icon data-p-icon="wallet" [size]="20" aria-hidden="true"></svg>
+      <svg icon data-p-icon="wallet" [size]="18" aria-hidden="true"></svg>
       <div hint class="min-h-6">
         @let rate = savingsRate();
         @if (!loading() && rate !== null) {
-          <span class="text-muted-color text-sm">
+          <span class="text-muted-color text-xs xl:text-sm">
             @if (rate >= 0) {
               Ahorraste el {{ rate | percent: '1.0-2' }} de tus ingresos
             } @else {

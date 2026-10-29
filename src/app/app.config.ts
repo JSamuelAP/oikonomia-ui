@@ -1,7 +1,13 @@
 import { registerLocaleData } from '@angular/common';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import localeEsMx from '@angular/common/locales/es-MX';
-import { ApplicationConfig, LOCALE_ID, provideAppInitializer, provideBrowserGlobalErrorListeners } from '@angular/core';
+import {
+  ApplicationConfig,
+  DEFAULT_CURRENCY_CODE,
+  LOCALE_ID,
+  provideAppInitializer,
+  provideBrowserGlobalErrorListeners,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { es } from 'primelocale/js/es.js';
 import { MessageService } from 'primeng/api';
@@ -24,6 +30,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     MessageService,
     { provide: LOCALE_ID, useValue: 'es-MX' },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'MXN' },
     providePrimeNG({
       theme: {
         preset: AppTheme,

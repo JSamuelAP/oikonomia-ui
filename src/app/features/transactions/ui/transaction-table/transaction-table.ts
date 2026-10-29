@@ -1,4 +1,4 @@
-import { CurrencyPipe, DatePipe, UpperCasePipe } from '@angular/common';
+import { DatePipe, UpperCasePipe } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { Eye } from '@primeicons/angular/eye';
 import { PIcon } from '@primeicons/angular/p-icon';
@@ -15,14 +15,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 
-import { CategoryReference } from '@shared/category/models/category-reference';
-import { FLOW_TYPE_DISPLAY, FlowTypeDisplay } from '@shared/models/flow-type';
+import { TypedRow } from '@shared/directives/typed-row';
+import { FLOW_TYPE_DISPLAY } from '@shared/models/flow-type';
+import { SignedCurrencyPipe } from '@shared/pipes/signed-currency.pipe';
 import { Transaction } from '@transactions/models/transaction';
 
 @Component({
   imports: [
     ButtonModule,
-    CurrencyPipe,
     DatePipe,
     Eye,
     IconField,
@@ -33,9 +33,11 @@ import { Transaction } from '@transactions/models/transaction';
     Plus,
     Receipt,
     Search,
+    SignedCurrencyPipe,
     TableModule,
     TagModule,
     Trash,
+    TypedRow,
     UpperCasePipe,
   ],
   selector: 'app-transaction-table',
@@ -48,13 +50,7 @@ export class TransactionTable {
   readonly delete = output<Transaction>();
   readonly create = output<void>();
 
-  protected flowTypeDisplay(category: CategoryReference): FlowTypeDisplay {
-    return FLOW_TYPE_DISPLAY[category.flowType];
-  }
-
-  protected formatAmount(amount: number, flowType: 'INCOME' | 'EXPENSE'): number {
-    return flowType === 'EXPENSE' ? -amount : amount;
-  }
+  protected readonly flowTypeDisplay = FLOW_TYPE_DISPLAY;
 
   protected customSort(event: SortEvent): void {
     const field = event.field ?? '';

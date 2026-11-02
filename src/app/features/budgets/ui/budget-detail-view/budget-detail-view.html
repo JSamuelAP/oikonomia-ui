@@ -1,0 +1,27 @@
+<article>
+  <div class="mb-6">
+    <span class="font-display text-primary mb-2 block text-5xl font-bold">{{
+      budget().expectedAmount | currency: 'MXN'
+    }}</span>
+    <p-tag [severity]="flowTypeDisplay().severity">
+      <svg [pIcon]="flowTypeDisplay().icon"></svg>
+      {{ budget().category.name }}
+    </p-tag>
+    <!-- <span class="text-accent mt-2 block">{{ budget().date | date: "EEEE d 'de' MMMM 'de' yyyy" }}</span> -->
+  </div>
+  <div class="mb-2">
+    <span class="text-muted-color text-sm">
+      @if (budget().category.flowType === 'INCOME') {
+        Total recibido:
+      } @else {
+        Total gastado:
+      }
+    </span>
+    <span>{{ budget().actualAmount | currency: 'MXN' }}</span>
+  </div>
+  <div class="mb-8">
+    <span class="text-muted-color text-sm">Restante: </span>
+    <span>{{ budget().remainingAmount | currency: 'MXN' }}</span>
+  </div>
+  <app-audit-dates [createdAt]="budget().createdAt" [updatedAt]="budget().updatedAt" />
+</article>

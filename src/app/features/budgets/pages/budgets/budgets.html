@@ -1,0 +1,29 @@
+<div class="flex flex-col gap-6">
+  <div class="flex flex-col justify-between gap-6 md:flex-row md:items-center">
+    <h1 class="text-primary text-4xl font-bold">Presupuestos</h1>
+    <app-month-picker [(selectedDate)]="currentMonth" [maxDate]="today" />
+    <button pButton size="large"><svg data-p-icon="plus"></svg> Nuevo presupuesto</button>
+  </div>
+  <!-- TODO: balance summary here -->
+  <div class="bg-surface-0 border-surface mb-0.5 p-4 shadow-xs">
+    <app-budget-table [budgets]="budgets.value()" (show)="openViewDialog($event)" />
+  </div>
+</div>
+
+<p-dialog
+  [visible]="viewDialogVisible()"
+  (visibleChange)="!$event && closeViewDialog()"
+  (onHide)="handleViewDialogHidden()"
+  header="Detalles del presupuesto"
+  [modal]="true"
+  [draggable]="false"
+  [style]="{ width: '30rem' }"
+>
+  <ng-template #content>
+    @if (renderViewDialog()) {
+      @if (budgetDetail.value(); as budget) {
+        <app-budget-detail-view [budget]="budget" />
+      }
+    }
+  </ng-template>
+</p-dialog>

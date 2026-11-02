@@ -19,6 +19,7 @@
     "^@environments/(.*)$",
     "^@shared/(.*)$",
     "^@auth/(.*)$",
+    "^@budgets/(.*)$",
     "^@categories/(.*)$",
     "^@transactions/(.*)$",
     "",

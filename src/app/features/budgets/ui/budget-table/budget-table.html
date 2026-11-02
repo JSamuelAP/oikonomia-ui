@@ -1,0 +1,123 @@
+<div class="mb-3 flex justify-end">
+  <p-iconfield iconPosition="left">
+    <p-inputicon>
+      <svg data-p-icon="search" />
+    </p-inputicon>
+    <input
+      pInputText
+      pSize="large"
+      type="text"
+      (input)="budgetsTable.filterGlobal($event.target.value, 'contains')"
+      placeholder="Buscar"
+    />
+  </p-iconfield>
+</div>
+<p-table
+  #budgetsTable
+  [value]="budgets()"
+  dataKey="id"
+  [globalFilterFields]="['category', 'expectedAmount', 'actualAmount', 'remainingAmount']"
+  [customSort]="true"
+  (sortFunction)="customSort($event)"
+  removableSort
+  stripedRows
+>
+  <ng-template #header>
+    <tr>
+      <th pSortableColumn="category">
+        Categoría
+        <p-sort-icon field="category" />
+      </th>
+      <th pSortableColumn="expectedAmount">
+        <div class="flex items-center gap-2">
+          Presupuestado
+          <p-sort-icon field="expectedAmount" />
+        </div>
+      </th>
+      <th pSortableColumn="actualAmount">
+        <div class="flex items-center gap-2">
+          Real
+          <p-sort-icon field="actualAmmount" />
+        </div>
+      </th>
+      <th pSortableColumn="remainingAmount">
+        <div class="flex items-center gap-2">
+          Restante
+          <p-sort-icon field="remainingAmount" />
+        </div>
+      </th>
+      <th>Acciones</th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-budget [appTypedRow]="budgets()">
+    @let flow = budget.category.flowType;
+    <tr>
+      <td>
+        <p-tag [severity]="flowTypeDisplay[flow].severity" class="text-nowrap">
+          <svg [pIcon]="flowTypeDisplay[flow].icon"></svg>
+          {{ budget.category.name }}
+        </p-tag>
+      </td>
+      <td>
+        <span class="text-muted-color text-nowrap tabular-nums">
+          {{ budget.expectedAmount | signedCurrency: flow }}
+        </span>
+      </td>
+      <td>
+        <span class="text-nowrap tabular-nums">
+          {{ budget.actualAmount | signedCurrency: flow }}
+        </span>
+      </td>
+      <td>
+        <span class="font-semibold text-nowrap tabular-nums">
+          {{ budget.remainingAmount | signedCurrency: flow }}
+        </span>
+      </td>
+      <td>
+        <div class="flex gap-4">
+          <button pButton (click)="handleShowClick(budget)" iconOnly rounded variant="text" aria-label="">
+            <svg data-p-icon="eye" [size]="18"></svg>
+          </button>
+          <button pButton iconOnly rounded variant="text" aria-label="">
+            <svg data-p-icon="pencil" [size]="18"></svg>
+          </button>
+          <button pButton iconOnly rounded variant="text" aria-label="">
+            <svg data-p-icon="trash" [size]="18"></svg>
+          </button>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  @if (budgets().length > 0) {
+    <ng-template #footer>
+      <tr>
+        <td colspan="5">
+          <div class="text-muted-color py-1 text-sm">
+            Total: <span class="font-semibold">{{ budgets().length }}</span> - Ingresos:
+            <span class="font-semibold">{{ incomeLength() }}</span> - Gastos:
+            <span class="font-semibold">{{ expenseLength() }}</span>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  }
+  <ng-template #emptymessage>
+    <tr>
+      <td colspan="5">
+        <div class="flex flex-col items-center justify-center gap-3 py-10 text-center">
+          <div class="bg-surface-100 flex h-16 w-16 items-center justify-center rounded-full">
+            <svg data-p-icon="receipt" class="text-surface-300" [size]="32" />
+          </div>
+          <div>
+            <p class="m-0 text-lg font-semibold">Aún no hay presupuestos</p>
+            <p class="text-muted-color mt-1">Registra tu primer presupuesto del mes para verlo aquí.</p>
+          </div>
+          <button type="button" pButton size="large">
+            <svg data-p-icon="plus" />
+            Nuevo presupuesto
+          </button>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

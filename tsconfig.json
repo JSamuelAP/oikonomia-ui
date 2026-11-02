@@ -16,6 +16,7 @@
     "paths": {
       "@core/*": ["./src/app/core/*"],
       "@auth/*": ["./src/app/features/auth/*"],
+      "@budgets/*": ["./src/app/features/budgets/*"],
       "@categories/*": ["./src/app/features/categories/*"],
       "@transactions/*": ["./src/app/features/transactions/*"],
       "@shared/*": ["./src/app/shared/*"],

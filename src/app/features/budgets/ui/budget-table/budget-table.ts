@@ -1,3 +1,4 @@
+import { PercentPipe } from '@angular/common';
 import { Component, computed, input, output } from '@angular/core';
 import { Eye } from '@primeicons/angular/eye';
 import { PIcon } from '@primeicons/angular/p-icon';
@@ -13,11 +14,13 @@ import { InputIcon } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { TypedRow } from '@shared/directives/typed-row';
 import { FLOW_TYPE_DISPLAY } from '@shared/models/flow-type';
 import { SignedCurrencyPipe } from '@shared/pipes/signed-currency.pipe';
 import { MonthlyBudget } from '@budgets/models/monthly-budget';
+import { BUDGET_STATUS_DISPLAY, budgetStatus, displayedRemaining } from '@budgets/utils/budget-status';
 
 @Component({
   imports: [
@@ -27,6 +30,7 @@ import { MonthlyBudget } from '@budgets/models/monthly-budget';
     InputIcon,
     InputTextModule,
     Pencil,
+    PercentPipe,
     PIcon,
     Plus,
     Receipt,
@@ -34,6 +38,7 @@ import { MonthlyBudget } from '@budgets/models/monthly-budget';
     SignedCurrencyPipe,
     TableModule,
     TagModule,
+    TooltipModule,
     Trash,
     TypedRow,
   ],
@@ -42,9 +47,13 @@ import { MonthlyBudget } from '@budgets/models/monthly-budget';
 })
 export class BudgetTable {
   readonly budgets = input<MonthlyBudget[]>([]);
+  readonly monthClosed = input<boolean>(false);
   readonly show = output<MonthlyBudget>();
 
   protected readonly flowTypeDisplay = FLOW_TYPE_DISPLAY;
+  protected readonly budgetStatus = budgetStatus;
+  protected readonly statusDisplay = BUDGET_STATUS_DISPLAY;
+  protected readonly displayedRemaining = displayedRemaining;
 
   protected readonly incomeLength = computed(
     () => this.budgets().filter((t) => t.category.flowType === 'INCOME').length,

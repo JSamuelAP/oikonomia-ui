@@ -25,3 +25,7 @@ export function formatDateOnly(date: Date): string {
 export function addMonths(date: Date, delta: number): Date {
   return new Date(date.getFullYear(), date.getMonth() + delta, 1);
 }
+
+export function monthIndex(date: Date): number {
+  return date.getFullYear() * 12 + date.getMonth();
+}

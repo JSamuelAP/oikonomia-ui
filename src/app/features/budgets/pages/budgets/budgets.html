@@ -6,7 +6,7 @@
   </div>
   <!-- TODO: balance summary here -->
   <div class="bg-surface-0 border-surface mb-0.5 p-4 shadow-xs">
-    <app-budget-table [budgets]="budgets.value()" (show)="openViewDialog($event)" />
+    <app-budget-table [budgets]="budgets.value()" [monthClosed]="monthClosed()" (show)="openViewDialog($event)" />
   </div>
 </div>
 
@@ -22,7 +22,7 @@
   <ng-template #content>
     @if (renderViewDialog()) {
       @if (budgetDetail.value(); as budget) {
-        <app-budget-detail-view [budget]="budget" />
+        <app-budget-detail-view [budget]="budget" [monthClosed]="monthClosed()" />
       }
     }
   </ng-template>

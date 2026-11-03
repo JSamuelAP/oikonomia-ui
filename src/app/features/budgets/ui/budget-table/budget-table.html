@@ -37,7 +37,7 @@
       <th pSortableColumn="actualAmount">
         <div class="flex items-center gap-2">
           Real
-          <p-sort-icon field="actualAmmount" />
+          <p-sort-icon field="actualAmount" />
         </div>
       </th>
       <th pSortableColumn="remainingAmount">
@@ -59,7 +59,7 @@
         </p-tag>
       </td>
       <td>
-        <span class="text-muted-color text-nowrap tabular-nums">
+        <span class="text-nowrap tabular-nums">
           {{ budget.expectedAmount | signedCurrency: flow }}
         </span>
       </td>
@@ -69,8 +69,26 @@
         </span>
       </td>
       <td>
-        <span class="font-semibold text-nowrap tabular-nums">
-          {{ budget.remainingAmount | signedCurrency: flow }}
+        @let status =
+          budgetStatus(flow, budget.expectedAmount, budget.actualAmount, budget.remainingAmount, monthClosed());
+        @let display = statusDisplay[status];
+        @let usage = budget.expectedAmount > 0 ? budget.actualAmount / budget.expectedAmount : 0;
+        <span
+          class="inline-flex items-center gap-2 font-semibold text-nowrap tabular-nums"
+          [class]="display.textClass"
+          [pTooltip]="(usage | percent: '1.0-2') + (flow === 'INCOME' ? ' recibido' : ' usado')"
+          tooltipPosition="top"
+        >
+          @if (display.icon) {
+            <svg [pIcon]="display.icon" [size]="16" aria-hidden="true"></svg>
+          }
+          {{ displayedRemaining(flow, budget.remainingAmount) | signedCurrency }}
+          @if (display.badge) {
+            <p-tag severity="danger" [value]="display.badge" />
+          }
+          @if (display.srText) {
+            <span class="sr-only">{{ display.srText }}</span>
+          }
         </span>
       </td>
       <td>

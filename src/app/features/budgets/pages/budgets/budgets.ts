@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 
 import { CategoryStore } from '@shared/category/category.store';
 import { MonthPicker } from '@shared/ui/month-picker/month-picker';
-import { addMonths } from '@shared/util/date';
+import { addMonths, monthIndex } from '@shared/util/date';
 import { BudgetDetailView } from '@budgets/ui/budget-detail-view/budget-detail-view';
 
 import { BudgetApiService } from '../../data-access/budget-api.service';
@@ -37,6 +37,8 @@ export class Budgets {
   protected readonly viewBudgetId = signal<string | null>(null);
   protected readonly renderViewDialog = signal(false);
   protected readonly viewDialogVisible = signal(false);
+
+  protected readonly monthClosed = computed(() => monthIndex(this.currentMonth()) < monthIndex(new Date()));
 
   protected readonly budgetDetail = rxResource({
     params: () => this.viewBudgetId(),

@@ -3,8 +3,8 @@ import { inject, Service } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '@environments/environment';
-import { MonthlyBalance } from '@shared/balance/models/monthly-balance';
 import { formatYearMonth } from '@shared/util/date';
+import { MonthlyBudgetBalance } from '@budgets/models/monthly-budget-balance';
 
 import { MonthlyBudget } from '../models/monthly-budget';
 import { MonthlyBudgetDetail } from '../models/monthly-budget-detail';
@@ -22,7 +22,7 @@ export class BudgetApiService {
     return this.http.get<MonthlyBudgetDetail>(`${this.baseUrl}/${id}`);
   }
 
-  getBalance(date: Date): Observable<MonthlyBalance> {
-    return this.http.get<MonthlyBalance>(`${this.baseUrl}/balance`, { params: { month: formatYearMonth(date) } });
+  getBalance(date: Date): Observable<MonthlyBudgetBalance> {
+    return this.http.get<MonthlyBudgetBalance>(`${this.baseUrl}/balance`, { params: { month: formatYearMonth(date) } });
   }
 }

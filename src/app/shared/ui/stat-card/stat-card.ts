@@ -13,6 +13,7 @@ const SEVERITY_TEXT: Record<StatSeverity, string> = {
   imports: [SkeletonModule],
   selector: 'app-stat-card',
   templateUrl: './stat-card.html',
+  host: { class: 'block' },
 })
 export class StatCard {
   readonly label = input.required<string>();

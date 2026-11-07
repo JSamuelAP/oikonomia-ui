@@ -5,17 +5,20 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { of } from 'rxjs';
 
+import { injectMonthlyBalance } from '@shared/balance/inject-monthly-balance';
+import { BudgetBalanceSummary } from '@shared/balance/ui/budget-balance-summary/budget-balance-summary';
 import { CategoryStore } from '@shared/category/category.store';
 import { MonthPicker } from '@shared/ui/month-picker/month-picker';
-import { addMonths, monthIndex } from '@shared/util/date';
+import { monthIndex } from '@shared/util/date';
 import { BudgetDetailView } from '@budgets/ui/budget-detail-view/budget-detail-view';
+import { budgetStatus } from '@budgets/utils/budget-status';
 
 import { BudgetApiService } from '../../data-access/budget-api.service';
 import { MonthlyBudget } from '../../models/monthly-budget';
 import { BudgetTable } from '../../ui/budget-table/budget-table';
 
 @Component({
-  imports: [ButtonModule, DialogModule, MonthPicker, Plus, BudgetTable, BudgetDetailView],
+  imports: [BudgetBalanceSummary, BudgetDetailView, BudgetTable, ButtonModule, DialogModule, MonthPicker, Plus],
   selector: 'app-budgets',
   templateUrl: './budgets.html',
 })
@@ -32,7 +35,22 @@ export class Budgets {
     defaultValue: [],
   });
 
-  protected readonly previousMonth = computed(() => addMonths(this.currentMonth(), -1));
+  protected readonly balance = injectMonthlyBalance(this.currentMonth, (month) => this.budgetApi.getBalance(month));
+  protected readonly overCount = computed(
+    () =>
+      this.budgets
+        .value()
+        .filter(
+          (b) =>
+            budgetStatus(
+              b.category.flowType,
+              b.expectedAmount,
+              b.actualAmount,
+              b.remainingAmount,
+              this.monthClosed(),
+            ) === 'over',
+        ).length,
+  );
 
   protected readonly viewBudgetId = signal<string | null>(null);
   protected readonly renderViewDialog = signal(false);

@@ -21,7 +21,17 @@ describe('Budgets', () => {
     httpMock = TestBed.inject(HttpTestingController);
 
     fixture.detectChanges();
-    httpMock.match(() => true).forEach((req) => req.flush([]));
+
+    const balance = {
+      month: '',
+      income: { expected: 0, actual: 0, remaining: 0 },
+      expense: { expected: 0, actual: 0, remaining: 0 },
+      expectedBalance: 0,
+      actualBalance: 0,
+    };
+
+    httpMock.match((req) => req.url.endsWith('/balance')).forEach((req) => req.flush(balance));
+    httpMock.match((req) => !req.url.endsWith('/balance')).forEach((req) => req.flush([]));
 
     await fixture.whenStable();
   });

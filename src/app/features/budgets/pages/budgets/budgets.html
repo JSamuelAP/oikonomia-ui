@@ -4,7 +4,14 @@
     <app-month-picker [(selectedDate)]="currentMonth" [maxDate]="today" />
     <button pButton size="large"><svg data-p-icon="plus"></svg> Nuevo presupuesto</button>
   </div>
-  <!-- TODO: balance summary here -->
+  <app-budget-balance-summary
+    [balance]="balance.value()"
+    [overCount]="overCount()"
+    [monthClosed]="monthClosed()"
+    [loading]="balance.status() === 'loading'"
+    [error]="balance.status() === 'error'"
+    (retry)="balance.reload()"
+  />
   <div class="bg-surface-0 border-surface mb-0.5 p-4 shadow-xs">
     <app-budget-table [budgets]="budgets.value()" [monthClosed]="monthClosed()" (show)="openViewDialog($event)" />
   </div>

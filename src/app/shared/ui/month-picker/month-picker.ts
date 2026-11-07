@@ -5,6 +5,8 @@ import { ArrowRight } from '@primeicons/angular/arrow-right';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 
+import { monthIndex } from '@shared/util/date';
+
 function startOfCurrentMonth(): Date {
   const now = new Date();
   return new Date(now.getFullYear(), now.getMonth(), 1);
@@ -28,14 +30,10 @@ export class MonthPicker {
   }
 
   protected isPrevDisabled(): boolean {
-    return this.toMonthIndex(this.selectedDate()) <= this.toMonthIndex(this.minDate);
+    return monthIndex(this.selectedDate()) <= monthIndex(this.minDate);
   }
 
   protected isNextDisabled(): boolean {
-    return this.toMonthIndex(this.selectedDate()) >= this.toMonthIndex(this.maxDate());
-  }
-
-  private toMonthIndex(date: Date): number {
-    return date.getFullYear() * 12 + date.getMonth();
+    return monthIndex(this.selectedDate()) >= monthIndex(this.maxDate());
   }
 }

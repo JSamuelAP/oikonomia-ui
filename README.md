@@ -195,7 +195,7 @@ abrir issues y pull requests.
 ### Requisitos
 
 - Node.js 26 y npm
-- API de Oikonomia en ejecución (versión [0.2.0](https://github.com/JSamuelAP/oikonomia-api/releases/tag/v0.2.0))
+- API de Oikonomia en ejecución (versión [1.0.0](https://github.com/JSamuelAP/oikonomia-api/releases/tag/v1.0.0))
 - Docker (opcional)
 - Licencia de PrimeUI (para que no muestre un mensaje de error en la interfaz). Se puede conseguir gratis en
   [primestore](https://primeui.store/primeui)

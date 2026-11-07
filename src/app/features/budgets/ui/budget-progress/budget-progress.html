@@ -1,0 +1,56 @@
+<section class="flex flex-col gap-2" aria-label="Avance del presupuesto">
+  <div
+    class="bg-surface-100 h-2 overflow-hidden rounded-full"
+    role="progressbar"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    [attr.aria-valuenow]="barWidth()"
+    [attr.aria-label]="flow() === 'INCOME' ? 'Porcentaje recibio' : 'Porcentaje usado'"
+  >
+    <div
+      class="h-full rounded-full transition-[width] duration-300"
+      [class]="display().barClass"
+      [style.width.%]="barWidth()"
+    ></div>
+  </div>
+  <span class="text-muted-color text-sm">
+    {{ usage() | percent: '1.0-2' }} {{ flow() === 'INCOME' ? 'recibido' : 'usado' }}
+  </span>
+  <p class="flex items-center gap-2 text-sm" [class]="display().textClass">
+    @if (display().icon; as icon) {
+      <svg [pIcon]="icon" [size]="16" aria-hidden="true"></svg>
+    }
+    @switch (messageKey()) {
+      @case ('ok') {
+        Vas bien: te quedan {{ left() | currency }}.
+      }
+      @case ('ok-closed') {
+        Te sobraron {{ left() | currency }}.
+      }
+      @case ('warning') {
+        Estás cerca del límite: te quedan {{ left() | currency }}.
+      }
+      @case ('warning-closed') {
+        Cerraste cerca del límite: sobraron {{ left() | currency }}.
+      }
+      @case ('exhausted') {
+        Usaste todo el presupuesto.
+      }
+      @case ('over') {
+        Te pasaste por {{ surplus() | currency }}.
+      }
+      @case ('pending') {
+        Faltan {{ left() | currency }} por recibir.
+      }
+      @case ('missed') {
+        Se recibió menos de lo esperado: faltaron {{ left() | currency }}.
+      }
+      @case ('reached') {
+        Meta alcanzada.
+      }
+      @case ('surpased') {
+        Superaste la meta por {{ surplus() | currency }}.
+      }
+    }
+  </p>
+</section>

@@ -1,0 +1,28 @@
+<article class="flex flex-col gap-6">
+  <header>
+    <span class="text-accent text-sm uppercase">Presupuestado</span>
+    <span class="font-display text-primary mb-4 block text-5xl font-bold tabular-nums">
+      {{ budget().expectedAmount | currency }}
+    </span>
+    <p-tag [severity]="flowTypeDisplay().severity">
+      <svg [pIcon]="flowTypeDisplay().icon" aria-hidden="true"></svg>
+      {{ budget().category.name }}
+    </p-tag>
+  </header>
+  <app-budget-progress
+    [flow]="flow()"
+    [expected]="budget().expectedAmount"
+    [actual]="budget().actualAmount"
+    [remaining]="budget().remainingAmount"
+    [monthClosed]="monthClosed()"
+  />
+  <dl class="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2">
+    <dt class="text-muted-color text-sm">{{ actualLabel() }}</dt>
+    <dt class="tabural-nums text-right">{{ budget().actualAmount | currency }}</dt>
+    <dt class="text-muted-color text-sm">Restante</dt>
+    <dt class="text-right font-semibold tabular-nums" [class]="display().textClass">
+      {{ remaining() | signedCurrency }}
+    </dt>
+  </dl>
+  <app-audit-dates [createdAt]="budget().createdAt" [updatedAt]="budget().updatedAt" />
+</article>

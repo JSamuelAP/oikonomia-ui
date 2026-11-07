@@ -1,0 +1,100 @@
+@if (error()) {
+  <p-message severity="error" variant="outlined">
+    <div class="flex flex-wrap items-center gap-2">
+      <span>No se pudo cargar el resumen de presupuestos.</span>
+      <button pButton size="small" [text]="true" (onClick)="retry.emit()">Reintentar</button>
+    </div>
+  </p-message>
+} @else {
+  @let b = balance();
+  <section
+    class="grid grid-cols-1 gap-4 md:grid-cols-3"
+    role="group"
+    aria-label="Resumen de presupuestos del mes"
+    [attr.aria-busy]="loading()"
+  >
+    <app-stat-card
+      label="Ingresos presupuestados"
+      [value]="b?.income.expected ?? 0 | signedCurrency"
+      [loading]="loading()"
+    >
+      <svg icon [pIcon]="income.icon" [size]="18" aria-hidden="true"></svg>
+      <div hint [class.min-h-24]="loading()">
+        @if (!loading() && b) {
+          @if (hasIncomePlan()) {
+            <p class="text-muted-color mb-2 text-sm tabular-nums">Recibido: {{ b.income.actual | signedCurrency }}</p>
+            <app-budget-progress
+              flow="INCOME"
+              [expected]="b.income.expected"
+              [actual]="b.income.actual"
+              [remaining]="b.income.remaining"
+              [monthClosed]="monthClosed()"
+            />
+          } @else {
+            <p class="text-muted-color text-sm">Sin ingresos presupuestados este mes.</p>
+          }
+        }
+      </div>
+    </app-stat-card>
+
+    <app-stat-card
+      label="Gastos presupuestados"
+      severity="danger"
+      [value]="-(b?.expense.expected ?? 0) | signedCurrency"
+      [loading]="loading()"
+    >
+      <svg icon [pIcon]="expense.icon" [size]="18" aria-hidden="true"></svg>
+      <div hint [class.min-h-24]="loading()">
+        @if (!loading() && b) {
+          @if (hasExpensePlan()) {
+            <p class="text-muted-color mb-2 text-sm tabular-nums">Gastado: {{ -b.expense.actual | signedCurrency }}</p>
+            <app-budget-progress
+              flow="EXPENSE"
+              [expected]="b.expense.expected"
+              [actual]="b.expense.actual"
+              [remaining]="b.expense.remaining"
+              [monthClosed]="monthClosed()"
+            />
+            @if (overCount() > 0) {
+              <p-tag
+                class="mt-2"
+                severity="danger"
+                icon="pi pi-exclamation-circle"
+                [value]="overCount() === 1 ? '1 categoría excedida' : overCount() + ' categorías excedidas'"
+              />
+            }
+          } @else {
+            <p class="text-muted-color text-sm">Sin gastos presupuestados este mes.</p>
+          }
+        }
+      </div>
+    </app-stat-card>
+
+    <app-stat-card
+      label="Balance esperado"
+      [severity]="expectedBalanceSeverity()"
+      [value]="hasIncomePlan() ? (b?.expectedBalance ?? 0 | signedCurrency) : '-'"
+      [loading]="loading()"
+    >
+      <svg icon data-p-icon="wallet" [size]="18" aria-hidden="true"></svg>
+      <div hint class="flex flex-col gap-1 text-sm" [class.min-h-24]="loading()">
+        @if (!loading() && b) {
+          @if (hasIncomePlan()) {
+            <span class="text-muted-color tabular-nums"> Balance real: {{ b.actualBalance | signedCurrency }} </span>
+            @if (b.expectedBalance < 0) {
+              <span class="text-red-700">Presupuestaste gastar más de lo que esperas ingresar.</span>
+            }
+          } @else {
+            <span class="text-muted-color">
+              {{
+                hasExpensePlan()
+                  ? 'Presupuesta tus ingreso para ver el balance esperado.'
+                  : 'Sin presupuestos este mes.'
+              }}
+            </span>
+          }
+        }
+      </div>
+    </app-stat-card>
+  </section>
+}

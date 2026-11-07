@@ -1,6 +1,6 @@
 @if (error()) {
   <p-message severity="error" variant="outlined">
-    <div class="flex-items-center flex gap-2">
+    <div class="flex flex-wrap items-center gap-2">
       <span>No se pudo cargar el balance del mes.</span>
       <button pButton size="small" [text]="true" (onClick)="retry.emit()">Reintentar</button>
     </div>

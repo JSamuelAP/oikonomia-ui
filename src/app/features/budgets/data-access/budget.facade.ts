@@ -36,4 +36,14 @@ export class BudgetFacade {
       return { kind: 'unknown', message };
     }
   }
+
+  async delete(id: string): Promise<boolean> {
+    try {
+      await firstValueFrom(this.budgetApi.delete(id));
+      return true;
+    } catch (error) {
+      console.error('Delete budget failed:', error);
+      return false;
+    }
+  }
 }

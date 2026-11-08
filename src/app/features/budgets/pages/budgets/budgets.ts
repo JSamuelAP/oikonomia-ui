@@ -2,7 +2,9 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ValidationError } from '@angular/forms/signals';
 import { Plus } from '@primeicons/angular/plus';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { of } from 'rxjs';
 
@@ -31,17 +33,21 @@ type BudgetFormDialogState = { mode: 'create' } | { mode: 'edit'; budget: Monthl
     BudgetForm,
     ButtonModule,
     BudgetTable,
+    ConfirmDialog,
     DialogModule,
     MonthPicker,
     Plus,
   ],
   selector: 'app-budgets',
   templateUrl: './budgets.html',
+  providers: [ConfirmationService],
 })
 export class Budgets {
   private readonly budgetApi = inject(BudgetApiService);
   private readonly budgetFacade = inject(BudgetFacade);
   protected readonly categoryStore = inject(CategoryStore);
+  private readonly confirmationService = inject(ConfirmationService);
+  private readonly messageService = inject(MessageService);
 
   protected readonly today = new Date();
 
@@ -116,6 +122,27 @@ export class Budgets {
     this.renderedFormState.set(null);
   }
 
+  protected openDeleteDialog(budget: MonthlyBudget): void {
+    this.confirmationService.confirm({
+      message: `¿Eliminar el presupuesto para <strong>${budget.category.name}</strong>?<br/>Esta acción no se podrá deshacer.`,
+      header: 'Eliminar presupuesto',
+      closable: true,
+      closeOnEscape: true,
+      icon: 'pi pi-exclamation-triangle',
+      rejectButtonProps: {
+        label: 'Cancelar',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Eliminar',
+      },
+      accept: () => {
+        this.deleteBudget(budget);
+      },
+    });
+  }
+
   protected readonly handleCreateBudget = async (data: CreateBudgetRequest): Promise<ValidationError | void> => {
     const error = await this.budgetFacade.create(data);
     if (error) return error;
@@ -132,5 +159,24 @@ export class Budgets {
       this.balance.reload();
       this.closeFormDialog();
     };
+  }
+
+  private async deleteBudget(budget: MonthlyBudget): Promise<void> {
+    const success = await this.budgetFacade.delete(budget.id);
+
+    if (success) {
+      this.budgets.reload();
+      this.balance.reload();
+    }
+
+    this.messageService.add(
+      success
+        ? {
+            severity: 'success',
+            summary: 'Presupuesto eliminado',
+            detail: 'El presupuesto se eliminó correctamente.',
+          }
+        : { severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el presupuesto. Intenta de nuevo.' },
+    );
   }
 }

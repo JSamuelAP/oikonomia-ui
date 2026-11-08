@@ -19,6 +19,7 @@
       (show)="openViewDialog($event)"
       (create)="openCreateDialog()"
       (edit)="openEditDialog($event)"
+      (delete)="openDeleteDialog($event)"
     />
   </div>
 </div>
@@ -62,3 +63,5 @@
     }
   </ng-template>
 </p-dialog>
+
+<p-confirmdialog />

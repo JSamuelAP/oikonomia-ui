@@ -32,6 +32,10 @@ export class BudgetApiService {
     return this.http.put<void>(`${this.baseUrl}/${id}`, request);
   }
 
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
   getBalance(date: Date): Observable<MonthlyBudgetBalance> {
     return this.http.get<MonthlyBudgetBalance>(`${this.baseUrl}/balance`, { params: { month: formatYearMonth(date) } });
   }

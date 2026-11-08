@@ -96,7 +96,7 @@
           <button pButton (click)="handleShowClick(budget)" iconOnly rounded variant="text" aria-label="">
             <svg data-p-icon="eye" [size]="18"></svg>
           </button>
-          <button pButton iconOnly rounded variant="text" aria-label="">
+          <button pButton (click)="handleEditClick(budget)" iconOnly rounded variant="text" aria-label="">
             <svg data-p-icon="pencil" [size]="18"></svg>
           </button>
           <button pButton iconOnly rounded variant="text" aria-label="">
@@ -130,7 +130,7 @@
             <p class="m-0 text-lg font-semibold">Aún no hay presupuestos</p>
             <p class="text-muted-color mt-1">Registra tu primer presupuesto del mes para verlo aquí.</p>
           </div>
-          <button type="button" pButton size="large">
+          <button type="button" pButton (click)="handleCreateClick()" size="large">
             <svg data-p-icon="plus" />
             Nuevo presupuesto
           </button>

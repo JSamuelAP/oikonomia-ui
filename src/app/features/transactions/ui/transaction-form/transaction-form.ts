@@ -10,20 +10,16 @@ import {
   required,
   ValidationError,
 } from '@angular/forms/signals';
-import { PIcon } from '@primeicons/angular/p-icon';
 import { Spinner } from '@primeicons/angular/spinner';
-import { Tags } from '@primeicons/angular/tags';
-import { SelectItem, SelectItemGroup } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
 
 import { Category } from '@shared/category/models/category';
-import { FLOW_TYPE_DISPLAY, FlowType } from '@shared/models/flow-type';
+import { CategorySelect } from '@shared/category/ui/category-select/category-select';
 import { FieldErrors } from '@shared/ui/field-errors/field-errors';
 import { formatDateOnly, parseDateOnly, startOfDay } from '@shared/util/date';
 import { CreateTransactionRequest } from '@transactions/data-access/models/create-transaction-request';
@@ -34,17 +30,15 @@ import { TransactionFormValue } from '@transactions/ui/transaction-form/transact
   imports: [
     AutoFocusModule,
     ButtonModule,
+    CategorySelect,
     DatePickerModule,
+    FieldErrors,
     FloatLabelModule,
     FormField,
     FormRoot,
     InputNumberModule,
-    PIcon,
-    SelectModule,
     Spinner,
-    Tags,
     TextareaModule,
-    FieldErrors,
   ],
   selector: 'app-transaction-form',
   templateUrl: './transaction-form.html',
@@ -60,16 +54,6 @@ export class TransactionForm {
     const transaction = this.initialValue();
     return transaction ? this.toFormValue(transaction) : this.emptyFormValue();
   });
-  protected readonly groupedCategories = linkedSignal<SelectItemGroup[]>(() => [
-    {
-      label: FLOW_TYPE_DISPLAY.EXPENSE.title,
-      items: this.toSelectItems(this.categories(), 'EXPENSE'),
-    },
-    {
-      label: FLOW_TYPE_DISPLAY.INCOME.title,
-      items: this.toSelectItems(this.categories(), 'INCOME'),
-    },
-  ]);
 
   private readonly AMOUNT_MIN = 0.01;
   private readonly AMOUNT_MAX = 9_999_999_999.99;
@@ -115,18 +99,5 @@ export class TransactionForm {
 
   private emptyFormValue(): TransactionFormValue {
     return { date: new Date(this.DATE_MAX), amount: 0.01, categoryId: '', notes: '' };
-  }
-
-  private toSelectItems(categories: Category[], flowType: FlowType): SelectItem<string>[] {
-    return categories.filter((c) => c.flowType === flowType).map((c) => this.toSelectItem(c));
-  }
-
-  private toSelectItem(category: Category): SelectItem<string> {
-    return {
-      label: category.name,
-      value: category.id,
-      icon: FLOW_TYPE_DISPLAY[category.flowType].icon,
-      styleClass: category.flowType === 'INCOME' ? 'p-green-700' : 'p-red-700',
-    };
   }
 }

@@ -17,7 +17,7 @@ export class TransactionApiService {
   private readonly baseUrl = `${environment.apiUrl}/api/v1/transactions`;
 
   getAll(date: Date): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(this.baseUrl, { params: { yearMonth: formatYearMonth(date) } });
+    return this.http.get<Transaction[]>(this.baseUrl, { params: { month: formatYearMonth(date) } });
   }
 
   getById(id: string): Observable<TransactionDetail> {

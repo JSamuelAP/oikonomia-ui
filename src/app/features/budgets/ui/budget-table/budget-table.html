@@ -130,7 +130,7 @@
             <p class="m-0 text-lg font-semibold">Aún no hay presupuestos</p>
             <p class="text-muted-color mt-1">Registra tu primer presupuesto del mes para verlo aquí.</p>
           </div>
-          <button type="button" pButton size="large">
+          <button type="button" pButton (click)="handleCreateClick()" size="large">
             <svg data-p-icon="plus" />
             Nuevo presupuesto
           </button>

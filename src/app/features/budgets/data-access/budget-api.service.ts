@@ -17,7 +17,7 @@ export class BudgetApiService {
   private readonly baseUrl = `${environment.apiUrl}/api/v1/monthly-budgets`;
 
   getAll(date: Date): Observable<MonthlyBudget[]> {
-    return this.http.get<MonthlyBudget[]>(this.baseUrl, { params: { yearMonth: formatYearMonth(date) } });
+    return this.http.get<MonthlyBudget[]>(this.baseUrl, { params: { month: formatYearMonth(date) } });
   }
 
   getById(id: string): Observable<MonthlyBudgetDetail> {

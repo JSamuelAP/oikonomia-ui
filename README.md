@@ -50,11 +50,11 @@ proyecto seguirá recibiendo actualizaciones de todo tipo.
 - Registro de usuarios, inicio y cierre de sesión.
 - Gestión de categorías de ingresos y gastos.
 - Gestión de transacciones por mes.
+- Gestión de presupuestos mensuales por categoría.
 
 Pendientes:
 
 - Actualizar categorías.
-- Gestión de presupuestos mensuales por categoría.
 - Gráficas y estadísticas.
 
 ## Stack
@@ -128,6 +128,7 @@ Aquí no quise complicármela con arquitectura hexagonal. Dudo mucho que llegue 
 │   │   │   └── main-layout/             # Sidebar y header
 │   │   └── features/
 │   │       ├── auth/
+│   │       ├── budgets/
 │   │       ├── categories/
 │   │       └── transactions/
 │   └── environments/

@@ -1,0 +1,34 @@
+<p-floatlabel variant="on">
+  <p-select
+    inputId="inputId"
+    [ngModel]="value()"
+    (ngModelChange)="value.set($event)"
+    (onBlur)="touched.set(true)"
+    [options]="groups()"
+    [group]="true"
+    [filter]="true"
+    filterBy="label"
+    [disabled]="disabled()"
+    [invalid]="invalid()"
+    appendTo="body"
+    size="large"
+    fluid
+  >
+    <ng-template #dropdownicon>
+      <svg data-p-icon="tags"></svg>
+    </ng-template>
+    <ng-template #selectedItem let-selectedOption>
+      <div class="flex items-center gap-2">
+        <svg [pIcon]="selectedOption.icon" [color]="`var(--${selectedOption.styleClass})`"></svg>
+        <div>{{ selectedOption.label }}</div>
+      </div>
+    </ng-template>
+    <ng-template let-item #item>
+      <div class="flex items-center gap-2">
+        <svg [pIcon]="item.icon" [color]="`var(--${item.styleClass})`"></svg>
+        <div>{{ item.label }}</div>
+      </div>
+    </ng-template>
+  </p-select>
+  <label for="category">Categoría</label>
+</p-floatlabel>

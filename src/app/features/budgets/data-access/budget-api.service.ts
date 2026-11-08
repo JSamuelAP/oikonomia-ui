@@ -9,6 +9,7 @@ import { MonthlyBudgetBalance } from '@budgets/models/monthly-budget-balance';
 import { MonthlyBudget } from '../models/monthly-budget';
 import { MonthlyBudgetDetail } from '../models/monthly-budget-detail';
 import { CreateBudgetRequest } from './models/create-budget-request';
+import { UpdateBudgetRequest } from './models/update-budget-request';
 
 @Service()
 export class BudgetApiService {
@@ -25,6 +26,10 @@ export class BudgetApiService {
 
   create(request: CreateBudgetRequest): Observable<void> {
     return this.http.post<void>(this.baseUrl, request);
+  }
+
+  update(id: string, request: UpdateBudgetRequest): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}/${id}`, request);
   }
 
   getBalance(date: Date): Observable<MonthlyBudgetBalance> {

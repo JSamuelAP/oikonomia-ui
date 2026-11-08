@@ -98,7 +98,7 @@ export class BudgetForm {
   private toFormValue(budget: MonthlyBudget): BudgetFormValue {
     const { month, year, expectedAmount, category } = budget;
     return {
-      month: new Date(year, month, 1),
+      month: new Date(year, month - 1, 1),
       expectedAmount,
       categoryId: category.id,
     };

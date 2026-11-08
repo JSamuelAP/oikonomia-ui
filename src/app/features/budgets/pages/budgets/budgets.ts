@@ -13,6 +13,7 @@ import { MonthPicker } from '@shared/ui/month-picker/month-picker';
 import { monthIndex } from '@shared/util/date';
 import { BudgetFacade } from '@budgets/data-access/budget.facade';
 import { CreateBudgetRequest } from '@budgets/data-access/models/create-budget-request';
+import { UpdateBudgetRequest } from '@budgets/data-access/models/update-budget-request';
 import { BudgetDetailView } from '@budgets/ui/budget-detail-view/budget-detail-view';
 import { BudgetForm } from '@budgets/ui/budget-form/budget-form';
 import { budgetStatus } from '@budgets/utils/budget-status';
@@ -102,6 +103,11 @@ export class Budgets {
     this.renderedFormState.set({ mode: 'create' });
   }
 
+  protected openEditDialog(budget: MonthlyBudget) {
+    this.formDialogState.set({ mode: 'edit', budget });
+    this.renderedFormState.set({ mode: 'edit', budget });
+  }
+
   protected closeFormDialog() {
     this.formDialogState.set(null);
   }
@@ -117,4 +123,14 @@ export class Budgets {
     this.balance.reload();
     this.closeFormDialog();
   };
+
+  protected handleUpdateBudget(id: string): (data: UpdateBudgetRequest) => Promise<ValidationError | void> {
+    return async (data: UpdateBudgetRequest): Promise<ValidationError | void> => {
+      const error = await this.budgetFacade.update(id, data);
+      if (error) return error;
+      this.budgets.reload();
+      this.balance.reload();
+      this.closeFormDialog();
+    };
+  }
 }

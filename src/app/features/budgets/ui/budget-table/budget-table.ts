@@ -50,6 +50,7 @@ export class BudgetTable {
   readonly monthClosed = input<boolean>(false);
   readonly show = output<MonthlyBudget>();
   readonly create = output<void>();
+  readonly edit = output<MonthlyBudget>();
 
   protected readonly flowTypeDisplay = FLOW_TYPE_DISPLAY;
   protected readonly budgetStatus = budgetStatus;
@@ -97,5 +98,9 @@ export class BudgetTable {
 
   protected handleCreateClick() {
     this.create.emit();
+  }
+
+  protected handleEditClick(budget: MonthlyBudget) {
+    this.edit.emit(budget);
   }
 }

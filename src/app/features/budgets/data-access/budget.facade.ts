@@ -3,6 +3,8 @@ import { inject, Service } from '@angular/core';
 import { ValidationError } from '@angular/forms/signals';
 import { firstValueFrom } from 'rxjs';
 
+import { unexpectedError } from '@core/http/http-errors';
+
 import { BudgetApiService } from './budget-api.service';
 import { CreateBudgetRequest } from './models/create-budget-request';
 import { UpdateBudgetRequest } from './models/update-budget-request';
@@ -16,11 +18,13 @@ export class BudgetFacade {
       await firstValueFrom(this.budgetApi.create(data));
       return;
     } catch (error) {
-      let message = 'Ocurrió un error, intenta de nuevo';
-      if (error instanceof HttpErrorResponse) {
-        message = error.error?.detail || message;
+      if (error instanceof HttpErrorResponse && error.status === 409) {
+        return {
+          kind: 'budgetAlreadyExists',
+          message: error.error?.detail ?? 'Ya existe un presupuesto para ese mes y categoría',
+        };
       }
-      return { kind: 'unknown', message };
+      return unexpectedError(error);
     }
   }
 
@@ -29,11 +33,13 @@ export class BudgetFacade {
       await firstValueFrom(this.budgetApi.update(id, data));
       return;
     } catch (error) {
-      let message = 'Ocurrió un error, intenta de nuevo';
-      if (error instanceof HttpErrorResponse) {
-        message = error.error?.detail || message;
+      if (error instanceof HttpErrorResponse && error.status === 409) {
+        return {
+          kind: 'budgetAlreadyExists',
+          message: error.error?.detail ?? 'Ya existe un presupuesto para ese mes y categoría',
+        };
       }
-      return { kind: 'unknown', message };
+      return unexpectedError(error);
     }
   }
 

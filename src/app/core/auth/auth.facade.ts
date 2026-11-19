@@ -3,6 +3,7 @@ import { inject, Service } from '@angular/core';
 import { ValidationError } from '@angular/forms/signals';
 import { firstValueFrom } from 'rxjs';
 
+import { unexpectedError } from '@core/http/http-errors';
 import { CurrentUserService } from '@core/user/current-user.service';
 import { UserApiService } from '@core/user/user-api.service';
 
@@ -30,7 +31,7 @@ export class AuthFacade {
       if (error instanceof HttpErrorResponse && error.status === 401) {
         return { kind: 'invalidCredentials', message: 'Correo o contraseña incorrectos' };
       }
-      return { kind: 'unknown', message: 'Ocurrió un error, intenta de nuevo' };
+      return unexpectedError(error);
     }
   }
 
@@ -47,7 +48,7 @@ export class AuthFacade {
           message: 'Ya existe una cuenta con este correo',
         };
       }
-      return { kind: 'unknown' satisfies SignupErrorKind, message: 'Ocurrió un error, intenta de nuevo' };
+      return unexpectedError(error);
     }
   }
 

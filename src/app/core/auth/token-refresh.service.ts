@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { catchError, finalize, map, Observable, share, throwError } from 'rxjs';
 
@@ -20,7 +21,9 @@ export class TokenRefreshService {
           return accessToken;
         }),
         catchError((error) => {
-          this.session.clear();
+          if (error instanceof HttpErrorResponse && error.status === 401) {
+            this.session.clear();
+          }
           return throwError(() => error);
         }),
         finalize(() => {

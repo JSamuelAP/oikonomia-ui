@@ -3,6 +3,7 @@ import { inject, Service } from '@angular/core';
 import { ValidationError } from '@angular/forms/signals';
 import { firstValueFrom } from 'rxjs';
 
+import { unexpectedError } from '@core/http/http-errors';
 import { CategoryStore } from '@shared/category/category.store';
 
 import { CategoryCommandApiService } from './category-command-api.service';
@@ -25,7 +26,7 @@ export class CategoryFacade {
           message: error.error?.detail ?? 'Ya existe una categoría con ese nombre y tipo',
         };
       }
-      return { kind: 'unknown', message: 'Ocurrió un error, intenta de nuevo' };
+      return unexpectedError(error);
     }
   }
 
@@ -41,7 +42,7 @@ export class CategoryFacade {
           message: error.error?.detail ?? 'Ya existe una categoría con ese nombre y tipo',
         };
       }
-      return { kind: 'unknown', message: 'Ocurrió un error, intenta de nuevo' };
+      return unexpectedError(error);
     }
   }
 

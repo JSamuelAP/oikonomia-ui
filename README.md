@@ -81,6 +81,7 @@ Estas herramientas me ayudan a mantener código formateado, a detectar posibles 
 ### DevOps
 
 ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?logo=githubactions&logoColor=white)
+![Dependabot](https://img.shields.io/badge/Dependabot-025E8C?logo=dependabot&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
 
 ## Arquitectura
@@ -104,7 +105,8 @@ Aquí no quise complicármela con arquitectura hexagonal. Dudo mucho que llegue 
 .
 ├── .github/
 │   ├── actions/configure-environment/   # Genera environment.ts en CI
-│   └── workflows/ci.yml
+│   ├── workflows/ci.yml                 # Pipeline de CI
+│   └── dependabot.yml                   # Actualizaciones de dependencias
 ├── nginx/
 │   ├── default.conf.template            # SPA, proxy a /api y caché
 │   └── security-headers.conf
@@ -167,6 +169,10 @@ Aquí no quise complicármela con arquitectura hexagonal. Dudo mucho que llegue 
 - La licencia de PrimeUI no se versiona. En local vive en `environment.local.ts` y en CI se genera `environment.ts`
   desde una variable de entorno de GitHub. Como la licencia se valida en el cliente, la clave forma parte del bundle
   publicado.
+
+### Actualización de dependencias
+
+Dependabot revisa semanalmente las dependencias de npm, GitHub Actions y la imagen de Docker. Las actualizaciones mayores de Angular y TypeScript se ignoran porque requieren una migración coordinada con `ng update`.
 
 ## Pruebas
 

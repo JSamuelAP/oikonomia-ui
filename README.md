@@ -171,6 +171,8 @@ Aquí no quise complicármela con arquitectura hexagonal. Dudo mucho que llegue 
 - La licencia de PrimeUI no se versiona. En local vive en `environment.local.ts` y en CI se genera `environment.ts`
   desde una variable de entorno de GitHub. Como la licencia se valida en el cliente, la clave forma parte del bundle
   publicado.
+- Las acciones de Docker del pipeline de CI están fijadas a un commit SHA inmutable en lugar de a una etiqueta
+  mutable, para evitar que una etiqueta comprometida ejecute código no revisado.
 
 ### Actualización de dependencias
 

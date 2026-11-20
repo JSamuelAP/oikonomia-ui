@@ -105,7 +105,9 @@ Aquí no quise complicármela con arquitectura hexagonal. Dudo mucho que llegue 
 .
 ├── .github/
 │   ├── actions/configure-environment/   # Genera environment.ts en CI
-│   ├── workflows/ci.yml                 # Pipeline de CI
+│   ├── workflows/
+│   │   ├── ci.yml                       # Pipeline de CI
+│   │   └── codeql.yml                   # Análisis de seguridad (CodeQL)
 │   └── dependabot.yml                   # Actualizaciones de dependencias
 ├── nginx/
 │   ├── default.conf.template            # SPA, proxy a /api y caché
@@ -174,6 +176,11 @@ Aquí no quise complicármela con arquitectura hexagonal. Dudo mucho que llegue 
 
 Dependabot revisa semanalmente las dependencias de npm, GitHub Actions y la imagen de Docker. Las actualizaciones mayores de Angular y TypeScript se ignoran porque requieren una migración coordinada con `ng update`.
 
+### Análisis de seguridad
+
+El código se analiza automáticamente con CodeQL en busca de vulnerabilidades. Los detalles están en
+[Calidad y CI/CD](#calidad-y-cicd).
+
 ## Pruebas
 
 Con cada componente u artefacto que genero, no elimino su archivo de pruebas spec. Actualmente no hay pruebas reales,
@@ -194,6 +201,9 @@ de un PR.
 - `quality`: valida formato, lint y pruebas.
 - `build`: compila en producción. Genera `environment.ts` con la licencia de PrimeUI.
 - `docker`: construye la imagen sin publicarla. Comprueba que NGINX inicie correctamente.
+
+Además, el análisis de seguridad de GitHub (CodeQL) revisa el código JavaScript/TypeScript y los workflows en busca de
+vulnerabilidades. Se ejecuta en push y pull request a `main`, semanalmente y bajo demanda.
 
 La rama `main` no puede recibir commits directamente; deben integrarse mediante pull requests. Incluyo plantillas para
 abrir issues y pull requests.

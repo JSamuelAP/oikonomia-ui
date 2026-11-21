@@ -183,6 +183,11 @@ Dependabot revisa semanalmente las dependencias de npm, GitHub Actions y la imag
 El código se analiza automáticamente con CodeQL en busca de vulnerabilidades. Los detalles están en
 [Calidad y CI/CD](#calidad-y-cicd).
 
+### Reporte de vulnerabilidades
+
+Para reportar una vulnerabilidad, consulta la [política de seguridad](SECURITY.md). El repositorio acepta reportes
+privados de vulnerabilidades.
+
 ## Pruebas
 
 Con cada componente u artefacto que genero, no elimino su archivo de pruebas spec. Actualmente no hay pruebas reales,
